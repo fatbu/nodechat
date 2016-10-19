@@ -1,11 +1,11 @@
-# nodejschat
+# nodechat
 Simple, lightweight node.js chat server and client
 
 ## How to use
 Preparation:
 ```
-$ git clone https://github.com/fatbu/nodejschat.git
-$ cd nodejschat
+$ git clone https://github.com/fatbu/nodechat.git
+$ cd nodechat
 $ npm install
 ```
 
