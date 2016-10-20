@@ -53,3 +53,7 @@ http.listen(port, function(){
   console.log('listening on:');
 	console.log(port);
 });
+
+require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+  console.log('address: '+add);
+})
