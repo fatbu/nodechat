@@ -28,16 +28,20 @@
 		};
     var socket = io.connect();
 		socket.emit('userconnect', nick);
+		/*
 		$('#m').on('input', function(){
 			// user typing thingy
 			socket.emit('typing', nick);
 		});
-		socket.on('typing', function(){}); // needs work
+		socket.on('typing', function(peopletyping){
+			$('#typers').html(peopletyping);
+		}); // needs work
     $('form').submit(function(){
       socket.emit('chat message', nick + ': ' + $('#m').val());
       $('#m').val('');
       return false;
     });
+		*/
 		socket.on('usernametaken', function(nickname){
 			alert('Username taken');
 			location.reload();
