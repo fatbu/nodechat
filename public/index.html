@@ -8,7 +8,7 @@
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 89%; margin-right: .5%; }
       form button { width: 10%; background: rgb(71, 237, 76); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages { list-style-type: none; margin: 0; padding: 0;}
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: black; }
     </style>
@@ -36,12 +36,14 @@
 		socket.on('typing', function(peopletyping){
 			$('#typers').html(peopletyping);
 		}); // needs work
+		*/
     $('form').submit(function(){
       socket.emit('chat message', nick + ': ' + $('#m').val());
       $('#m').val('');
+			$('#mylist').animate({scrollTop: $('#mylist').prop("scrollHeight")}, 500);
       return false;
     });
-		*/
+		
 		socket.on('usernametaken', function(nickname){
 			alert('Username taken');
 			location.reload();
