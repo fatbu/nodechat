@@ -14,6 +14,7 @@
     </style>
   </head>
   <body>
+		<audio><source src='ding.m4a'></audio>
     <ul id="messages"></ul>
 		<div id='typers'></div>
     <form action="">
@@ -49,7 +50,7 @@
 		});
     socket.on('chat message', function(msg){
       $('#messages').append($('<li>').text(msg));
-			$('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 500);
+			$('audio')[0].play();
 		});
 		window.onbeforeunload = function(){
 			socket.emit('userdisconnect', nick);

@@ -1,6 +1,8 @@
 # nodechat
 Simple, lightweight node.js chat server and client
 
+Sounds by theta4 from freesound.org
+
 ## How to use
 Preparation:
 ```

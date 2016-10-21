@@ -6,6 +6,10 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
 
+app.get('/ding.m4a', function(req, res){
+	res.sendFile(__dirname + '/public/ding.m4a');
+});
+
 var nicknames = [];
 var people_typing = [];
 
