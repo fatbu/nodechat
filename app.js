@@ -22,7 +22,7 @@ io.on('connection', function(socket){
 		}else{
 			nicknames.push(nick);
 			io.emit('chat message', nick + ' connected');
-			console.log('chat message', nick + ' connected');
+			console.log(nick + ' connected');
 		}
 	});
 	/*
@@ -44,7 +44,7 @@ io.on('connection', function(socket){
 	*/
 	socket.on('userdisconnect', function(nick){
 		io.emit('chat message', nick + ' disconnected');
-		console.log('chat message', nick + ' disconnected')
+		console.log(nick + ' disconnected')
 		nicknames.splice(nicknames.indexOf(nick), 1);
 	});
 });
