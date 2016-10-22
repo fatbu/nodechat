@@ -24,14 +24,14 @@ setTimeout(function(){people_typing = []}, 1000);
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
-		console.log(msg)
+		console.log(msg.nickname + ': ' + msg.message);
 	});
 	socket.on('userconnect', function(nick){
 		if(nicknames.indexOf(nick) != -1){
 			socket.emit('usernametaken', nick);
 		}else{
 			nicknames.push(nick);
-			io.emit('chat message', nick + ' connected');
+			io.emit('chat message', {nickname: nick, message: 'connected'});
 			console.log(nick + ' connected');
 		}
 	});
