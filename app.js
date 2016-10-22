@@ -10,6 +10,12 @@ app.get('/ding.m4a', function(req, res){
 	res.sendFile(__dirname + '/public/ding.m4a');
 });
 
+function randomInt(low, high){
+    return Math.floor(Math.random() * (high - low + 1) + low);
+}
+
+var admin_pin = randomInt(1000, 9999);
+
 var nicknames = [];
 var people_typing = [];
 
