@@ -39,10 +39,16 @@
 		}); // needs work
 		*/
     $('form').submit(function(){
-      socket.emit('chat message', {nickname: nick, message: $('#m').val()});
-      $('#m').val('');
-			$('#mylist').animate({scrollTop: $('#mylist').prop("scrollHeight")}, 500);
-      return false;
+			var txt = $('#m').val();
+			if(txt.charAt(0)=='/'){
+				// Commands!
+				txt = txt.slice(1);
+			}else{
+      	socket.emit('chat message', {nickname: nick, message: txt});
+      	$('#m').val('');
+				$('#mylist').animate({scrollTop: $('#mylist').prop("scrollHeight")}, 500);
+      	return false;
+			}
     });
 		socket.on('usernametaken', function(nickname){
 			alert('Username taken');
