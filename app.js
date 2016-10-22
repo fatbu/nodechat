@@ -58,13 +58,17 @@ io.on('connection', function(socket){
 		nicknames.splice(nicknames.indexOf(nick), 1);
 	});
 });
-
-var port = process.argv[2]
-
-http.listen(port, function(){
-  console.log('listening on: '+port);
-});
+try {
+	var port = process.argv[2]
+	http.listen(port);
+	console.log('listening on: '+port);
+} catch(ex) {
+	console.log('You did not specify a port.');
+	http.listen(3000, function(){
+  	console.log('listening on: '+3000);
+	});
+}
 
 require('dns').lookup(require('os').hostname(), function (err, add, fam) {
   console.log('address: '+add);
-})
+});
