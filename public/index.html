@@ -45,6 +45,12 @@
 				// Commands!
 				// Work in progress
 				txt = txt.slice(1);
+				if(txt.search(/kick/) != -1){ // NEEDS WORK
+					console.log('kick command detected');
+					txt = txt.slice(txt.search(/kick/)); // A little unwieldy but who cares
+					console.log(txt);
+				}
+				
 				
 				$('#m').val('');
 				return false;
