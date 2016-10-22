@@ -14,8 +14,6 @@ function randomInt(low, high){
     return Math.floor(Math.random() * (high - low + 1) + low);
 }
 
-var admin_pin = randomInt(1000, 9999);
-
 var nicknames = [];
 var people_typing = [];
 
@@ -31,7 +29,7 @@ io.on('connection', function(socket){
 			socket.emit('usernametaken', nick);
 		}else{
 			nicknames.push(nick);
-			io.emit('chat message', {nickname: '', message: nick+' connected'});
+			io.emit('chat message', {nickname: 'Server', message: nick+' connected'});
 			console.log(nick + ' connected');
 		}
 	});
@@ -53,7 +51,7 @@ io.on('connection', function(socket){
 	});
 	*/
 	socket.on('userdisconnect', function(nick){
-		io.emit('chat message', {nickname: '', message: nick+' disconnected'});
+		io.emit('chat message', {nickname: 'Server', message: nick+' disconnected'});
 		console.log(nick + ' disconnected')
 		nicknames.splice(nicknames.indexOf(nick), 1);
 	});

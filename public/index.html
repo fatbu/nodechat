@@ -23,6 +23,7 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
+		var adminpin = 0;
 		var nick = prompt('Nickname', 'Guest');
 		if(nick.trim() == '' || nick.length < 5){
 			location.reload();
@@ -42,11 +43,14 @@
 			var txt = $('#m').val();
 			if(txt.charAt(0)=='/'){
 				// Commands!
+				// Work in progress
 				txt = txt.slice(1);
+				
+				$('#m').val('');
+				return false;
 			}else{
       	socket.emit('chat message', {nickname: nick, message: txt});
       	$('#m').val('');
-				$('#mylist').animate({scrollTop: $('#mylist').prop("scrollHeight")}, 500);
       	return false;
 			}
     });
