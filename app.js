@@ -50,6 +50,10 @@ io.on('connection', function(socket){
 		}
 	});
 	*/
+	socket.on('mute', function(user){
+		io.emit('mute', user);
+		console.log('muted ' + user);
+	});
 	socket.on('userdisconnect', function(nick){
 		io.emit('chat message', {nickname: 'Server', message: nick+' disconnected'});
 		console.log(nick + ' disconnected')

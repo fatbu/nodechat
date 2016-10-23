@@ -45,13 +45,12 @@
 				// Commands!
 				// Work in progress
 				txt = txt.slice(1);
-				if(txt.search(/kick/) != -1){ // NEEDS WORK
-					console.log('kick command detected');
-					txt = txt.slice(txt.search(/kick/)); // A little unwieldy but who cares
-					console.log(txt);
+				if(txt.search(/mute/) != -1){ // NEEDS WORK
+					txt = txt.replace(/mute\s/, '');
+					socket.emit('mute', txt);
 				}
 				
-				
+				// Clean up
 				$('#m').val('');
 				return false;
 			}else{
@@ -67,6 +66,11 @@
     socket.on('chat message', function(data){
       $('#messages').append($('<li>').text(data.nickname + ': ' + data.message));
 			$('audio')[0].play();
+		});
+		socket.on('mute', function(user){
+			if(nick == user){
+				$('#m').remove();
+			}
 		});
 		window.onbeforeunload = function(){
 			socket.emit('userdisconnect', nick);
