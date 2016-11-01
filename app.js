@@ -2,6 +2,15 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+// admin password thing
+function randomIntInc(low, high) { // https://blog.tompawlak.org/generate-random-values-nodejs-javascript thanks :D
+    return Math.floor(Math.random() * (high - low + 1) + low);
+}
+var adminpassword = randomIntInc(1000, 9999);
+
+console.log('Admin password: ' + adminpassword);
+console.log('Keep it secret :)');
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
@@ -23,6 +32,11 @@ io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
 		console.log(msg.nickname + ': ' + msg.message);
+	});
+	socket.on('verifyadmin', function(password){
+		if(password == adminpassword){
+			socket.emit('verified');
+		}
 	});
 	socket.on('userconnect', function(nick){
 		if(nicknames.indexOf(nick) != -1){

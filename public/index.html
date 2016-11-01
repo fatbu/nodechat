@@ -23,12 +23,17 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-		var adminpin = 0;
 		var nick = prompt('Nickname', 'Guest');
 		if(nick.trim() == '' || nick.length < 5){
 			location.reload();
 		};
     var socket = io.connect();
+		var admin = false
+		socket.on('verified', function(){
+			admin=true;
+			socket.emit('chat message', {nickname: '', message: nick + ' is now an operator!'});
+		});
+		
 		socket.emit('userconnect', nick);
 		/*
 		$('#m').on('input', function(){
@@ -41,13 +46,18 @@
 		*/
     $('form').submit(function(){
 			var txt = $('#m').val();
-			if(txt.charAt(0)=='/'){
+			if(txt.charAt(0)=='/'){ // Only for admins
+
 				// Commands!
 				// Work in progress
+				// P.S. this is hackable xD
 				txt = txt.slice(1);
-				if(txt.search(/mute/) != -1){ // NEEDS WORK
-					txt = txt.replace(/mute\s/, '');
-					socket.emit('mute', txt);
+				
+				if(admin){
+					if(txt.search(/mute/) != -1){ // NEEDS WORK
+						txt = txt.replace(/mute\s/, '');
+						socket.emit('mute', txt);
+					}
 				}
 				
 				// Clean up

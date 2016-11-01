@@ -14,8 +14,17 @@ $ npm install
 ######Arguments:
 `node app [port]`
 
+The default port is 3000.
+
 ```
-$ node app 3000
+$ node app
+Admin password: ****
+Keep it secret :)
+You did not specify a port.
 listening on: 3000
-address: ***.***.*.***
+address: 10.0.65.45
 ```
+
+Admins have the ability to mute people.
+To become an admin do `socket.emit('verifyadmin', [insert admin password])`
+More functionality will be added soon.
