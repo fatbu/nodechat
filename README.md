@@ -24,7 +24,3 @@ You did not specify a port.
 listening on: 3000
 address: 10.0.65.45
 ```
-
-Admins have the ability to mute people.
-To become an admin do `socket.emit('verifyadmin', [insert admin password])` in the browser console. I'm working on a way to do it on chat.
-More functionality will be added soon.

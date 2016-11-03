@@ -31,7 +31,7 @@
 		var admin = false
 		socket.on('verified', function(){
 			admin=true;
-			socket.emit('chat message', {nickname: '', message: nick + ' is now an operator!'});
+			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
 		});
 		
 		socket.emit('userconnect', nick);
@@ -53,10 +53,17 @@
 				// P.S. this is hackable xD
 				txt = txt.slice(1);
 				
+				if(txt.search(/operator/) != -1){ // NEEDS WORK
+					txt = txt.replace(/operator\s/, '');
+					socket.emit('verifyadmin', parseInt(txt));
+				}
+				
 				if(admin){
 					if(txt.search(/mute/) != -1){ // NEEDS WORK
 						txt = txt.replace(/mute\s/, '');
-						socket.emit('mute', txt);
+						if(txt!=nick){
+							socket.emit('mute', txt);
+						}
 					}
 				}
 				
