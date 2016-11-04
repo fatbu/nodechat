@@ -6,14 +6,16 @@
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 16px Helvetica, Arial; color: white; background: black;}
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 100%; }
-      #messages { list-style-type: none; margin: 0; padding: 20px; overflow-y: auto;}
+      form input { border: 0; padding: 10px; width: 100%;}
+			#clearchatdiv { float: right; padding: 10px;}
+			#clearchatbtn { width: 100px; height: 40px; padding: 10px; font-size: 14px; border-radius: 10px;}
+      #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto;}
       #messages li { padding: 5px;}
       #messages li:nth-child(odd) { background: black; }
     </style>
   </head>
   <body>
-		<div id='clearchatdiv'><button onclick='$("#messages").empty()'>Clear chat</button>
+		<div id='clearchatdiv'><button id='clearchatbtn' onclick='$("#messages").empty()'>Clear chat</button></div>
 		<audio><source src='ding.m4a'></audio>
     <ul id="messages"></ul>
 		<div id='typers'></div>
