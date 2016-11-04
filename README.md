@@ -17,12 +17,12 @@ $ npm install
 The default port is 3000.
 
 ```
-$ node app
-Admin password: ****
-Keep it secret :)
-You did not specify a port.
-listening on: 3000
-address: **.**.**.**
+$ node app 21212
+listening on: 21212
+Operator password: ****
+local address: ***.***.***.***:21212
+external address: ***.***.***.***:21212
 ```
 
 Then go to the address in a browser :)
+Port forward for people outsite your network to connect to the external address.

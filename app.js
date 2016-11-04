@@ -2,14 +2,32 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var port;
+if(process.argv[2]==undefined){
+	console.log('You did not specify a port. Using port 3000 by default.');
+	port = 3000;
+}else{
+	port = process.argv[2];
+}
+http.listen(3000, console.log('listening on: '+port))
+
 // admin password thing
 function randomIntInc(low, high) { // https://blog.tompawlak.org/generate-random-values-nodejs-javascript thanks :D
     return Math.floor(Math.random() * (high - low + 1) + low);
 }
 var adminpassword = randomIntInc(1000, 9999);
 
-console.log('Admin password: ' + adminpassword);
-console.log('Keep it secret :)');
+console.log('Operator password: ' + adminpassword);
+
+console.log('local address: ' + require('ip').address() + ':' + port);
+getIP = require('external-ip')();
+getIP(function(err, ip){
+	if(err){
+		console.log('An error occurred while fetching the external ip address');
+	}else{
+		console.log('external address: ' + ip + ':' + port);
+	}
+});
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
@@ -74,17 +92,7 @@ io.on('connection', function(socket){
 		nicknames.splice(nicknames.indexOf(nick), 1);
 	});
 });
-try {
-	var port = process.argv[2]
-	http.listen(port);
-	console.log('listening on: '+port);
-} catch(ex) {
-	console.log('You did not specify a port.');
-	http.listen(3000, function(){
-  	console.log('listening on: '+3000);
-	});
-}
 
-require('dns').lookup(require('os').hostname(), function (err, add, fam) {
-  console.log('address: '+add);
-});
+
+
+
