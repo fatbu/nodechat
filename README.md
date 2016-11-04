@@ -22,5 +22,7 @@ Admin password: ****
 Keep it secret :)
 You did not specify a port.
 listening on: 3000
-address: 10.0.65.45
+address: **.**.**.**
 ```
+
+Then go to the address in a browser :)
