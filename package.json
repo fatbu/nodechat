@@ -11,5 +11,9 @@
 	"repository": {
 	  "type": "git",
 	  "url": "git://github.com/fatbu/nodechat.git"
-	}
+	},
+	"scripts": {
+		"start": "node app.js"
+	},
+	"main": "app.js"
 }
