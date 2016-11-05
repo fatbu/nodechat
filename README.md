@@ -11,17 +11,17 @@ $ cd nodechat
 $ npm install
 ```
 
-######Arguments:
-`node app [port]`
+######How to use
+`node app`
 
 The default port is 3000.
 
 ```
-$ node app 21212
-listening on: 21212
+$ node app
+listening on: 3000
 Operator password: ****
-local address: ***.***.***.***:21212
-external address: ***.***.***.***:21212
+local address: ***.***.***.***:3000
+external address: ***.***.***.***:3000
 ```
 
 Then go to the address in a browser :)

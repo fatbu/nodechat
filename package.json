@@ -1,6 +1,6 @@
 {
   "name": "socket-chat-example",
-  "version": "0.0.3",
+  "version": "0.1.3",
   "description": "socket.io chat application",
   "dependencies": {
     "express": "^4.14.0",

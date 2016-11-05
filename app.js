@@ -2,14 +2,10 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var port;
-if(process.argv[2]==undefined){
-	console.log('You did not specify a port. Using port 3000 by default.');
-	port = 3000;
-}else{
-	port = process.argv[2];
-}
-http.listen(3000, console.log('listening on: '+port))
+var port = process.env.OPENSHIFT_NODEJS_PORT || 3000
+var serverip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+
+http.listen(port, serverip, console.log('listening on: '+port))
 
 // admin password thing
 function randomIntInc(low, high) { // https://blog.tompawlak.org/generate-random-values-nodejs-javascript thanks :D
