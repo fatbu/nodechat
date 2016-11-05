@@ -16,14 +16,6 @@ var adminpassword = randomIntInc(1000, 9999);
 console.log('Operator password: ' + adminpassword);
 
 console.log('local address: ' + require('ip').address() + ':' + port);
-getIP = require('external-ip')();
-getIP(function(err, ip){
-	if(err){
-		console.log('An error occurred while fetching the external ip address');
-	}else{
-		console.log('external address: ' + ip + ':' + port);
-	}
-});
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
