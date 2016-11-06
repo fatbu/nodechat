@@ -24,7 +24,7 @@ app.get('/ding.m4a', function(req, res){
 	res.sendFile(__dirname + '/public/ding.m4a');
 });
 
-app.get('/jquery-3.1.1.min.js' function(req, res){
+app.get('/jquery-3.1.1.min.js', function(req, res){
 	res.sendFile(__dirname + '/public/jquery-3.1.1.min.js');
 });
 
