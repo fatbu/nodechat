@@ -4,7 +4,6 @@ var io = require('socket.io')(http);
 
 var port = process.env.PORT || 3000;
 
-
 http.listen(port, console.log('listening on: '+port));
 
 // admin password thing
@@ -23,6 +22,10 @@ app.get('/', function(req, res){
 
 app.get('/ding.m4a', function(req, res){
 	res.sendFile(__dirname + '/public/ding.m4a');
+});
+
+app.get('/jquery-3.1.1.min.js' function(req, res){
+	res.sendFile(__dirname + '/public/jquery-3.1.1.min.js');
 });
 
 function randomInt(low, high){
