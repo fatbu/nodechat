@@ -60,8 +60,12 @@
 				txt = txt.slice(1);
 				
 				if(txt.search(/operator/) != -1){ // NEEDS WORK
-					txt = txt.replace(/operator\s/, '');
-					socket.emit('verifyadmin', parseInt(txt));
+					if(txt == 'operator'){ // is it JUST /operator? that will print the admin passcode in console
+						socket.emit('printadmin');
+					}else{
+						txt = txt.replace(/operator\s/, '');
+						socket.emit('verifyadmin', parseInt(txt));
+					}
 				}
 				
 				if(txt.search(/users/) != -1){

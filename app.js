@@ -47,7 +47,9 @@ io.on('connection', function(socket){
 	socket.on('getusers', function(){
 		socket.emit('usersonline', nicknames);
 	});
-	
+	socket.on('printadmin', function(){
+		console.log('Admin password: ' + adminpassword);
+	});
 	socket.on('verifyadmin', function(password){
 		if(password == adminpassword){
 			socket.emit('verified');
