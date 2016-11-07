@@ -33,7 +33,6 @@ function randomInt(low, high){
 }
 
 var nicknames = [];
-var people_typing = [];
 
 setTimeout(function(){people_typing = []}, 1000);
 
@@ -42,6 +41,13 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
 		console.log(msg.nickname + ': ' + msg.message);
 	});
+	
+	// PUT ALL SOCKET.IO MESSAGE HANDLING BELOW
+	
+	socket.on('getusers', function(){
+		socket.emit('usersonline', nicknames);
+	});
+	
 	socket.on('verifyadmin', function(password){
 		if(password == adminpassword){
 			socket.emit('verified');
@@ -56,23 +62,7 @@ io.on('connection', function(socket){
 			console.log(nick + ' connected');
 		}
 	});
-	/*
-	socket.on('typing', function(nick){
-		console.log(nick + 'is typing');
-		if(people_typing.indexOf(nick)!=-1){
-			people_typing.push(nick);
-			var peopletypingstr = '';
-		  
-			for(var i=0; i<people_typing.length; i++){
-				peopletypingstr.concat(people_typing[i]+',');
-			}
-			
-			// needs work
-		
-			io.emit('typing', peopletypingstr);
-		}
-	});
-	*/
+
 	socket.on('mute', function(user){
 		io.emit('mute', user);
 		console.log('muted ' + user);
