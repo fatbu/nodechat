@@ -1,7 +1,7 @@
 # nodechat
-Simple, lightweight node.js chat server and client
-Code is based off the example at the socket.io website
-Sounds by theta4 from freesound.org
+Simple, lightweight node.js chat server and client.
+Code is based off the example at the socket.io website.
+Sounds by theta4 from freesound.org.
 
 ## How to use
 Preparation:
