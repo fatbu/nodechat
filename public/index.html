@@ -31,7 +31,8 @@
 		};
     var socket = io.connect();
 		var admin = false
-		socket.on('verified', function(){
+		
+		socket.on('verified', function(){ // Admin verification
 			admin=true;
 			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
 		});
