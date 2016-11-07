@@ -36,23 +36,26 @@
 			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
 		});
 		
-		socket.emit('userconnect', nick);
-		/*
-		$('#m').on('input', function(){
-			// user typing thingy
-			socket.emit('typing', nick);
+    socket.on('chat message', function(data){ // very important thing, obviously
+      $('#messages').append($('<li>').text(data.nickname + ': ' + data.message));
+			$('audio')[0].play();
 		});
-		socket.on('typing', function(peopletyping){
-			$('#typers').html(peopletyping);
-		}); // needs work
-		*/
+		
+		socket.on('usersonline', function(users){
+			$('#messages').append($('<li>').text('Users online: ' + users.toString()));
+		});
+		
+		socket.emit('userconnect', nick);
     $('form').submit(function(){
 			var txt = $('#m').val();
-			if(txt.charAt(0)=='/'){ // Only for admins
-
+			if(txt.charAt(0)=='/'){
+				
+				
 				// Commands!
 				// Work in progress
 				// P.S. this is hackable xD
+				
+				
 				txt = txt.slice(1);
 				
 				if(txt.search(/operator/) != -1){ // NEEDS WORK
@@ -60,7 +63,16 @@
 					socket.emit('verifyadmin', parseInt(txt));
 				}
 				
+				if(txt.search(/users/) != -1){
+					txt = txt.replace(/users\s/, '');
+					socket.emit('getusers');
+				}
+				
+				
 				if(admin){
+					
+					// Admin commands only
+					
 					if(txt.search(/mute/) != -1){ // NEEDS WORK
 						txt = txt.replace(/mute\s/, '');
 						if(txt!=nick){
@@ -82,10 +94,7 @@
 			alert('Username taken');
 			location.reload();
 		});
-    socket.on('chat message', function(data){
-      $('#messages').append($('<li>').text(data.nickname + ': ' + data.message));
-			$('audio')[0].play();
-		});
+    
 		socket.on('mute', function(user){
 			if(nick == user){
 				$('#m').remove();
