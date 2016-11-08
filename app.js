@@ -64,7 +64,10 @@ io.on('connection', function(socket){
 			console.log(nick + ' connected');
 		}
 	});
-
+	socket.on('ban', function(user){
+		io.emit('ban', user);
+		console.log('banned ' + user);
+	});
 	socket.on('mute', function(user){
 		io.emit('mute', user);
 		console.log('muted ' + user);
@@ -74,6 +77,7 @@ io.on('connection', function(socket){
 		console.log(nick + ' disconnected')
 		nicknames.splice(nicknames.indexOf(nick), 1);
 	});
+	
 });
 
 

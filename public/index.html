@@ -25,6 +25,11 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="jquery-3.1.1.min.js"></script>
     <script>
+		if(localStorage.banned){
+			while(true){
+				alert('You have been permanently banned from chat!');
+			}
+		}
 		function appendMessage(messagetext){
 			$('#messages').append($('<li>').text(messagetext));
 		}
@@ -86,7 +91,14 @@
 					
 					// Admin commands only
 					
-					if(txt.search(/mute/) != -1){ // NEEDS WORK
+					if(txt.search(/ban/) != -1){
+						txt = txt.replace(/ban\s/, '');
+						if(txt!=nick){
+							socket.emit('ban', txt);
+						}
+					}
+					
+					if(txt.search(/mute/) != -1){
 						txt = txt.replace(/mute\s/, '');
 						if(txt!=nick){
 							socket.emit('mute', txt);
@@ -107,7 +119,12 @@
 			alert('Username taken');
 			location.reload();
 		});
-    
+    socket.on('ban', function(user){
+    	if(nick == user){
+    		localStorage.banned = true;
+				location.reload();
+    	}
+    });
 		socket.on('mute', function(user){
 			if(nick == user){
 				$('#m').remove();
