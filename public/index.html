@@ -91,7 +91,7 @@
 					
 					// Admin commands only
 					
-					if(txt.search(/ban/) != -1){
+					if(txt.search(/permban/) != -1){
 						txt = txt.replace(/ban\s/, '');
 						if(txt!=nick){
 							socket.emit('ban', txt);

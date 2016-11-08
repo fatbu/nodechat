@@ -66,7 +66,7 @@ io.on('connection', function(socket){
 	});
 	socket.on('ban', function(user){
 		io.emit('ban', user);
-		console.log('banned ' + user);
+		console.log('permanently banned ' + user);
 	});
 	socket.on('mute', function(user){
 		io.emit('mute', user);
