@@ -30,10 +30,14 @@
 		}
 		var nick = prompt('Nickname');
 		if(nick.trim() == '' || nick.length < 5){
+			alert('Nickname too short');
 			location.reload();
 		};
+		
+		appendMessage('Connecting...');
     var socket = io.connect();
-		var admin = false
+		appendMessage('Connected.');
+		var admin = false;
 		
 		socket.on('verified', function(){ // Admin verification
 			admin=true;
@@ -48,7 +52,7 @@
 		socket.on('usersonline', function(users){
 			appendMessage('Users online: ' + users.toString());
 		});
-		
+		appendMessage('Logging in...');
 		socket.emit('userconnect', nick);
     $('form').submit(function(){
 			var txt = $('#m').val();
