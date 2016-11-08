@@ -54,6 +54,7 @@
 		});
 		appendMessage('Logging in...');
 		socket.emit('userconnect', nick);
+		socket.emit('getusers');
     $('form').submit(function(){
 			var txt = $('#m').val();
 			if(txt.charAt(0)=='/'){
