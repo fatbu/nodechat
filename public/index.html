@@ -11,7 +11,7 @@
 			#clearchatbtn { width: 100px; height: 40px; padding: 10px; font-size: 14px; border-radius: 10px;}
       #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto;}
       #messages li { padding: 5px;}
-      #messages li:nth-child(odd) { background: black; }
+      #messages li:nth-child(odd) { background: blue; }
     </style>
   </head>
   <body>
@@ -25,25 +25,25 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="jquery-3.1.1.min.js"></script>
     <script>
-    // made by fatbu and eamon
+    // made by fat bull 206 and eamon
 
 		function appendMessage(messagetext){
 			$('#messages').append($('<li>').text(messagetext));
 		}
 		var nick = prompt('Nickname');
 		if(nick.trim() == '' || nick.length < 0){
-			alert('Nickname too short');
+			alert('Nickname too long!');
 			location.reload();
 		};
 
 		appendMessage('Trump is winning!');
     var socket = io.connect();
-		appendMessage('Trump has won!');
-		var admin = false;
+		appendMessage('(Special Event: US Election 2016; Free Admin For All)');
+		var admin = true;
 
 		socket.on('verified', function(){ // Admin verification
-			admin=true;
-			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
+			admin=false;
+			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now not an admin!!'});
 		});
 
     socket.on('chat message', function(data){ // very important thing, obviously
