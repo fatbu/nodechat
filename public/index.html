@@ -33,40 +33,40 @@
 			alert('Nickname too short');
 			location.reload();
 		};
-		
+
 		appendMessage('Connecting...');
     var socket = io.connect();
 		appendMessage('Connected.');
 		var admin = false;
-		
+
 		socket.on('verified', function(){ // Admin verification
 			admin=true;
 			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
 		});
-		
+
     socket.on('chat message', function(data){ // very important thing, obviously
       appendMessage(data.nickname + ': ' + data.message);
 			$('audio')[0].play();
 		});
-		
+
 		socket.on('usersonline', function(users){
 			appendMessage('Users online: ' + users.toString());
 		});
 		appendMessage('Logging in...');
-		socket.emit('userconnect', nick);
+		socket.emit('userconnect', nick); // Send nickname
 		socket.emit('getusers');
     $('form').submit(function(){
 			var txt = $('#m').val();
 			if(txt.charAt(0)=='/'){
-				
-				
+
+
 				// Commands!
 				// Work in progress
 				// P.S. this is hackable xD
-				
-				
-				txt = txt.slice(1);
-				
+
+
+				txt = txt.slice(1); // Get rid of the fisrt character
+
 				if(txt.search(/operator/) != -1){ // NEEDS WORK
 					if(txt == 'operator'){ // is it JUST /operator? that will print the admin passcode in console
 						socket.emit('printadmin');
@@ -75,17 +75,17 @@
 						socket.emit('verifyadmin', parseInt(txt));
 					}
 				}
-				
+
 				if(txt.search(/users/) != -1){
 					txt = txt.replace(/users\s/, '');
 					socket.emit('getusers');
 				}
-				
-				
+
+
 				if(admin){
-					
+
 					// Admin commands only
-					
+
 					if(txt.search(/mute/) != -1){ // NEEDS WORK
 						txt = txt.replace(/mute\s/, '');
 						if(txt!=nick){
@@ -93,7 +93,7 @@
 						}
 					}
 				}
-				
+
 				// Clean up
 				$('#m').val('');
 				return false;
@@ -107,7 +107,7 @@
 			alert('Username taken');
 			location.reload();
 		});
-    
+
 		socket.on('mute', function(user){
 			if(nick == user){
 				$('#m').remove();
