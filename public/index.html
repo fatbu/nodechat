@@ -28,16 +28,10 @@
 		function appendMessage(messagetext){
 			$('#messages').append($('<li>').text(messagetext));
 		}
-		
-		if(document.cookie){
-				
-			appendMessage('You have been temporarily banned from this server!'); // NEEDS WORK!!!
-				
-			throw new Error('Banned');
-		}
+
 		if(localStorage.banned){
 			appendMessage('You have been permanently banned from this server!');
-			
+
 			throw new error('Banned');
 		}
 
@@ -46,22 +40,22 @@
 			alert('Nickname too short');
 			location.reload();
 		};
-		
+
 		appendMessage('Connecting...');
     var socket = io.connect();
 		appendMessage('Connected.');
 		var admin = false;
-		
+
 		socket.on('verified', function(){ // Admin verification
 			admin=true;
 			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
 		});
-		
+
     socket.on('chat message', function(data){ // very important thing, obviously
       appendMessage(data.nickname + ': ' + data.message);
 			$('audio')[0].play();
 		});
-		
+
 		socket.on('usersonline', function(users){
 			appendMessage('Users online: ' + users.toString());
 		});
@@ -71,15 +65,15 @@
     $('form').submit(function(){
 			var txt = $('#m').val();
 			if(txt.charAt(0)=='/'){
-				
-				
+
+
 				// Commands!
 				// Work in progress
 				// P.S. this is hackable xD
-				
-				
+
+
 				txt = txt.slice(1);
-				
+
 				if(txt.search(/operator/) != -1){ // NEEDS WORK
 					if(txt == 'operator'){ // is it JUST /operator? that will print the admin passcode in console
 						socket.emit('printadmin');
@@ -88,15 +82,15 @@
 						socket.emit('verifyadmin', parseInt(txt));
 					}
 				}
-				
+
 				if(txt.search(/users/) != -1){
 					txt = txt.replace(/users\s/, '');
 					socket.emit('getusers');
 				}
-				
-				
+
+
 				if(admin){
-					
+
 					// Admin commands only
 					if(txt.search(/tempban/) != -1){
 						txt = txt.replace(/tempban\s/, '');
@@ -104,15 +98,15 @@
 							socket.emit('tempban', txt);
 						}
 					}
-					
-					
+
+
 					if(txt.search(/ban/) != -1){
 						txt = txt.replace(/ban\s/, '');
 						if(txt!=nick){
 							socket.emit('ban', txt);
 						}
 					}
-					
+
 					if(txt.search(/mute/) != -1){
 						txt = txt.replace(/mute\s/, '');
 						if(txt!=nick){
@@ -120,7 +114,7 @@
 						}
 					}
 				}
-				
+
 				// Clean up
 				$('#m').val('');
 				return false;
@@ -134,14 +128,7 @@
 			alert('Username taken');
 			location.reload();
 		});
-		socket.on('tempban', function(user){
-			if(nick == user){
-				var today = new Date();
-				today.setTime(today.getTime()+(24*60*60*1000));
-				document.cookie=name+'='+value+'=banstate;expires='+today.toGMTString()+'path=/';
-				location.reload();
-			}
-		});
+		
     socket.on('ban', function(user){
     	if(nick == user){
     		localStorage.banned = true;

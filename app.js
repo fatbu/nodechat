@@ -41,9 +41,9 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
 		console.log(msg.nickname + ': ' + msg.message);
 	});
-	
+
 	// PUT ALL SOCKET.IO MESSAGE HANDLING BELOW
-	
+
 	socket.on('getusers', function(){
 		socket.emit('usersonline', nicknames);
 	});
@@ -64,12 +64,9 @@ io.on('connection', function(socket){
 			console.log(nick + ' connected');
 		}
 	});
-	
-	socket.on('tempban', function(user){
-		io.emit('tempban', user);
-		console.log('temporarily banned ' + user);
-	});
-	
+
+
+
 	socket.on('ban', function(user){
 		io.emit('ban', user);
 		console.log('banned ' + user);
@@ -83,9 +80,5 @@ io.on('connection', function(socket){
 		console.log(nick + ' disconnected')
 		nicknames.splice(nicknames.indexOf(nick), 1);
 	});
-	
+
 });
-
-
-
-
