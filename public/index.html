@@ -142,17 +142,14 @@
 			alert('Username taken');
 			location.reload();
 		});
-<<<<<<< HEAD
 
-=======
-		
     socket.on('ban', function(user){
     	if(nick == user){
     		localStorage.banned = true;
 				location.reload();
     	}
     });
->>>>>>> ban-command
+
 		socket.on('mute', function(user){
 			if(nick == user){
 				$('#m').remove();
