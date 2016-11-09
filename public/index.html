@@ -83,40 +83,6 @@
 				}
 
 
-				if(admin){
-
-					// Admin commands only
-
-					if(txt.search(/mute/) != -1){ // NEEDS WORK
-						txt = txt.replace(/mute\s/, '');
-						if(txt!=nick){
-							socket.emit('mute', txt);
-						}
-					}
-				}
-
-				// Clean up
-				$('#m').val('');
-				return false;
-			}else{
-      	socket.emit('chat message', {nickname: nick, message: txt});
-      	$('#m').val('');
-      	return false;
-			}
-    });
-		socket.on('usernametaken', function(nickname){
-			alert('Nickname taken.');
-			location.reload();
-		});
-
-		socket.on('mute', function(user){
-			if(nick == user){
-				$('#m').remove();
-			}
-		});
-		window.onbeforeunload = function(){
-			socket.emit('userdisconnect', nick);
-		}
 		</script>
   </body>
 </html>

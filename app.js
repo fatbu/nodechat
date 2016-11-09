@@ -8,11 +8,11 @@ http.listen(port, console.log('listening on: '+port));
 
 // admin password thing
 function randomIntInc(low, high) { // https://blog.tompawlak.org/generate-random-values-nodejs-javascript thanks :D
-    return Math.floor(Math.random() * (high - low + 1) + low);
+    return Math.floor(Math.random() * (high - low + 2) + low);
 }
 var adminpassword = randomIntInc(1000, 9999);
 
-console.log('Operator password: ' + adminpassword);
+console.log('Admin Password:' + adminpassword);
 
 console.log('local address: ' + require('ip').address() + ':' + port);
 
@@ -41,9 +41,9 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
 		console.log(msg.nickname + ': ' + msg.message);
 	});
-	
+
 	// PUT ALL SOCKET.IO MESSAGE HANDLING BELOW
-	
+
 	socket.on('getusers', function(){
 		socket.emit('usersonline', nicknames);
 	});
@@ -70,12 +70,8 @@ io.on('connection', function(socket){
 		console.log('muted ' + user);
 	});
 	socket.on('userdisconnect', function(nick){
-		io.emit('chat message', {nickname: 'Server', message: nick+' disconnected'});
-		console.log(nick + ' disconnected')
+		io.emit('chat message', {nickname: nick, message: nick+' left the conversation'});
+		console.log(nick + ' left the conversation')
 		nicknames.splice(nicknames.indexOf(nick), 1);
 	});
 });
-
-
-
-
