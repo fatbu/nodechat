@@ -30,16 +30,30 @@
 		function appendMessage(messagetext){
 			$('#messages').append($('<li>').text(messagetext));
 		}
+
+		if(localStorage.banned){
+			appendMessage('You have been permanently banned from this server!');
+
+			throw new error('Banned');
+		}
+
 		var nick = prompt('Nickname');
 		if(nick.trim() == '' || nick.length < 0){
 			alert('Nickname too long!');
 			location.reload();
 		};
 
+<<<<<<< HEAD
 		appendMessage('Trump is winning!');
     var socket = io.connect();
 		appendMessage('(Special Event: US Election 2016; Free Admin For All)');
 		var admin = true;
+=======
+		appendMessage('Connecting...');
+    var socket = io.connect();
+		appendMessage('Connected.');
+		var admin = false;
+>>>>>>> ban-command
 
 		socket.on('verified', function(){ // Admin verification
 			admin=false;
@@ -87,8 +101,27 @@
 				if(admin){
 
 					// Admin commands only
+<<<<<<< HEAD
 
 					if(txt.search(/mute/) != -1){ // NEEDS WORK
+=======
+					if(txt.search(/tempban/) != -1){
+						txt = txt.replace(/tempban\s/, '');
+						if(txt!=nick){
+							socket.emit('tempban', txt);
+						}
+					}
+
+
+					if(txt.search(/ban/) != -1){
+						txt = txt.replace(/ban\s/, '');
+						if(txt!=nick){
+							socket.emit('ban', txt);
+						}
+					}
+
+					if(txt.search(/mute/) != -1){
+>>>>>>> ban-command
 						txt = txt.replace(/mute\s/, '');
 						if(txt!=nick){
 							socket.emit('mute', txt);
@@ -109,7 +142,17 @@
 			alert('Username taken');
 			location.reload();
 		});
+<<<<<<< HEAD
 
+=======
+		
+    socket.on('ban', function(user){
+    	if(nick == user){
+    		localStorage.banned = true;
+				location.reload();
+    	}
+    });
+>>>>>>> ban-command
 		socket.on('mute', function(user){
 			if(nick == user){
 				$('#m').remove();
