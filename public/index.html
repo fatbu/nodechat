@@ -4,7 +4,7 @@
     <title>Chat</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 16px Helvetica, Arial; color: gold; background: black;}
+      body { font: 16px Helvetica, Arial; color: white; background: black;}
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 100%;}
 			#clearchatdiv { float: right; padding: 10px;}
@@ -34,10 +34,9 @@
 			location.reload();
 		};
 
-		appendMessage('Welcome to CISChat');
+		appendMessage('Connecting...');
     var socket = io.connect();
 		appendMessage('Connected.');
-    appendMessage('Message of the Day: Trump has won the 2016 US Elections!');
 		var admin = false;
 
 		socket.on('verified', function(){ // Admin verification
@@ -54,7 +53,7 @@
 			appendMessage('Users online: ' + users.toString());
 		});
 		appendMessage('Logging in...');
-		socket.emit('userconnect', nick);
+		socket.emit('userconnect', nick); // Send nickname
 		socket.emit('getusers');
     $('form').submit(function(){
 			var txt = $('#m').val();
@@ -66,7 +65,7 @@
 				// P.S. this is hackable xD
 
 
-				txt = txt.slice(1);
+				txt = txt.slice(1); // Get rid of the fisrt character
 
 				if(txt.search(/operator/) != -1){ // NEEDS WORK
 					if(txt == 'operator'){ // is it JUST /operator? that will print the admin passcode in console
@@ -83,6 +82,43 @@
 				}
 
 
+<<<<<<< HEAD
+=======
+				if(admin){
+
+					// Admin commands only
+
+					if(txt.search(/mute/) != -1){ // NEEDS WORK
+						txt = txt.replace(/mute\s/, '');
+						if(txt!=nick){
+							socket.emit('mute', txt);
+						}
+					}
+				}
+
+				// Clean up
+				$('#m').val('');
+				return false;
+			}else{
+      	socket.emit('chat message', {nickname: nick, message: txt});
+      	$('#m').val('');
+      	return false;
+			}
+    });
+		socket.on('usernametaken', function(nickname){
+			alert('Username taken');
+			location.reload();
+		});
+
+		socket.on('mute', function(user){
+			if(nick == user){
+				$('#m').remove();
+			}
+		});
+		window.onbeforeunload = function(){
+			socket.emit('userdisconnect', nick);
+		}
+>>>>>>> master
 		</script>
   </body>
 </html>
