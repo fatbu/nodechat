@@ -1,7 +1,7 @@
 {
   "name": "socket-chat-example",
-  "version": "21.pokemon.nick.69",
-  "description": "i play pokemon go everyday",
+  "version": "0.3.3",
+  "description": "socket.io chat application",
   "dependencies": {
     "express": "^4.14.0",
     "socket.io": "^1.4.8",
@@ -9,7 +9,7 @@
   },
 	"repository": {
 	  "type": "git",
-	  "url": "cischat.herokuap.com"
+	  "url": "git://github.com/fatbu/nodechat.git"
 	},
 	"scripts": {
 		"start": "node app.js"

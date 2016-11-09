@@ -11,7 +11,7 @@
 			#clearchatbtn { width: 100px; height: 40px; padding: 10px; font-size: 14px; border-radius: 10px;}
       #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto;}
       #messages li { padding: 5px;}
-      #messages li:nth-child(odd) { background: blue; }
+      #messages li:nth-child(odd) { background: black; }
     </style>
   </head>
   <body>
@@ -25,46 +25,30 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="jquery-3.1.1.min.js"></script>
     <script>
-    // made by fat bull 206 and eamon
-
 		function appendMessage(messagetext){
 			$('#messages').append($('<li>').text(messagetext));
 		}
-
-		if(localStorage.banned){
-			appendMessage('You have been permanently banned from this server!');
-
-			throw new error('Banned');
-		}
-
 		var nick = prompt('Nickname');
-		if(nick.trim() == '' || nick.length < 0){
-			alert('Nickname too long!');
+		if(nick.trim() == '' || nick.length < 5){
+			alert('Nickname too short');
 			location.reload();
 		};
-
-<<<<<<< HEAD
-		appendMessage('Trump is winning!');
-    var socket = io.connect();
-		appendMessage('(Special Event: US Election 2016; Free Admin For All)');
-		var admin = true;
-=======
+		
 		appendMessage('Connecting...');
     var socket = io.connect();
 		appendMessage('Connected.');
 		var admin = false;
->>>>>>> ban-command
-
+		
 		socket.on('verified', function(){ // Admin verification
-			admin=false;
-			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now not an admin!!'});
+			admin=true;
+			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
 		});
-
+		
     socket.on('chat message', function(data){ // very important thing, obviously
       appendMessage(data.nickname + ': ' + data.message);
 			$('audio')[0].play();
 		});
-
+		
 		socket.on('usersonline', function(users){
 			appendMessage('Users online: ' + users.toString());
 		});
@@ -74,15 +58,15 @@
     $('form').submit(function(){
 			var txt = $('#m').val();
 			if(txt.charAt(0)=='/'){
-
-
+				
+				
 				// Commands!
 				// Work in progress
 				// P.S. this is hackable xD
-
-
+				
+				
 				txt = txt.slice(1);
-
+				
 				if(txt.search(/operator/) != -1){ // NEEDS WORK
 					if(txt == 'operator'){ // is it JUST /operator? that will print the admin passcode in console
 						socket.emit('printadmin');
@@ -91,44 +75,25 @@
 						socket.emit('verifyadmin', parseInt(txt));
 					}
 				}
-
+				
 				if(txt.search(/users/) != -1){
 					txt = txt.replace(/users\s/, '');
 					socket.emit('getusers');
 				}
-
-
+				
+				
 				if(admin){
-
+					
 					// Admin commands only
-<<<<<<< HEAD
-
+					
 					if(txt.search(/mute/) != -1){ // NEEDS WORK
-=======
-					if(txt.search(/tempban/) != -1){
-						txt = txt.replace(/tempban\s/, '');
-						if(txt!=nick){
-							socket.emit('tempban', txt);
-						}
-					}
-
-
-					if(txt.search(/ban/) != -1){
-						txt = txt.replace(/ban\s/, '');
-						if(txt!=nick){
-							socket.emit('ban', txt);
-						}
-					}
-
-					if(txt.search(/mute/) != -1){
->>>>>>> ban-command
 						txt = txt.replace(/mute\s/, '');
 						if(txt!=nick){
 							socket.emit('mute', txt);
 						}
 					}
 				}
-
+				
 				// Clean up
 				$('#m').val('');
 				return false;
@@ -142,17 +107,7 @@
 			alert('Username taken');
 			location.reload();
 		});
-<<<<<<< HEAD
-
-=======
-		
-    socket.on('ban', function(user){
-    	if(nick == user){
-    		localStorage.banned = true;
-				location.reload();
-    	}
-    });
->>>>>>> ban-command
+    
 		socket.on('mute', function(user){
 			if(nick == user){
 				$('#m').remove();
