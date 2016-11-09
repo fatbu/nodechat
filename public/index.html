@@ -4,10 +4,9 @@
     <title>Chat</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 16px Serif, Comic; color: gold; background: white;}
+      body { font: 16px Helvetica, Arial; color: white; background: black;}
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 10%;}
-
+      form input { border: 0; padding: 10px; width: 100%;}
 			#clearchatdiv { float: right; padding: 10px;}
 			#clearchatbtn { width: 100px; height: 40px; padding: 10px; font-size: 14px; border-radius: 10px;}
       #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto;}
@@ -26,32 +25,30 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="jquery-3.1.1.min.js"></script>
     <script>
-    // made by fat bull 206 and eamon
-
 		function appendMessage(messagetext){
 			$('#messages').append($('<li>').text(messagetext));
 		}
 		var nick = prompt('Nickname');
-		if(nick.trim() == '' || nick.length < 0){
-			alert('Nickname too long!');
+		if(nick.trim() == '' || nick.length < 5){
+			alert('Nickname too short');
 			location.reload();
 		};
-
-		appendMessage('Trump is winning!');
+		
+		appendMessage('Connecting...');
     var socket = io.connect();
-		appendMessage('(Special Event: US Election 2016; Free Admin For All)');
-		var admin = true;
-
+		appendMessage('Connected.');
+		var admin = false;
+		
 		socket.on('verified', function(){ // Admin verification
-			admin=false;
-			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now not an admin!!'});
+			admin=true;
+			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
 		});
-
+		
     socket.on('chat message', function(data){ // very important thing, obviously
       appendMessage(data.nickname + ': ' + data.message);
 			$('audio')[0].play();
 		});
-
+		
 		socket.on('usersonline', function(users){
 			appendMessage('Users online: ' + users.toString());
 		});
@@ -61,15 +58,15 @@
     $('form').submit(function(){
 			var txt = $('#m').val();
 			if(txt.charAt(0)=='/'){
-
-
+				
+				
 				// Commands!
 				// Work in progress
 				// P.S. this is hackable xD
-
-
+				
+				
 				txt = txt.slice(1);
-
+				
 				if(txt.search(/operator/) != -1){ // NEEDS WORK
 					if(txt == 'operator'){ // is it JUST /operator? that will print the admin passcode in console
 						socket.emit('printadmin');
@@ -78,17 +75,17 @@
 						socket.emit('verifyadmin', parseInt(txt));
 					}
 				}
-
+				
 				if(txt.search(/users/) != -1){
 					txt = txt.replace(/users\s/, '');
 					socket.emit('getusers');
 				}
-
-
+				
+				
 				if(admin){
-
+					
 					// Admin commands only
-
+					
 					if(txt.search(/mute/) != -1){ // NEEDS WORK
 						txt = txt.replace(/mute\s/, '');
 						if(txt!=nick){
@@ -96,7 +93,7 @@
 						}
 					}
 				}
-
+				
 				// Clean up
 				$('#m').val('');
 				return false;
@@ -110,7 +107,7 @@
 			alert('Username taken');
 			location.reload();
 		});
-
+    
 		socket.on('mute', function(user){
 			if(nick == user){
 				$('#m').remove();
