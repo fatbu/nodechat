@@ -25,14 +25,22 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="jquery-3.1.1.min.js"></script>
     <script>
-		if(localStorage.banned){
-			while(true){
-				alert('You have been permanently banned from chat!');
-			}
-		}
 		function appendMessage(messagetext){
 			$('#messages').append($('<li>').text(messagetext));
 		}
+		
+		if(document.cookie){
+				
+			appendMessage('You have been temporarily banned from this server!'); // NEEDS WORK!!!
+				
+			throw new Error('Banned');
+		}
+		if(localStorage.banned){
+			appendMessage('You have been permanently banned from this server!');
+			
+			throw new error('Banned');
+		}
+
 		var nick = prompt('Nickname');
 		if(nick.trim() == '' || nick.length < 5){
 			alert('Nickname too short');
@@ -90,6 +98,13 @@
 				if(admin){
 					
 					// Admin commands only
+					if(txt.search(/tempban/) != -1){
+						txt = txt.replace(/tempban\s/, '');
+						if(txt!=nick){
+							socket.emit('tempban', txt);
+						}
+					}
+					
 					
 					if(txt.search(/permban/) != -1){
 						txt = txt.replace(/ban\s/, '');
@@ -118,6 +133,14 @@
 		socket.on('usernametaken', function(nickname){
 			alert('Username taken');
 			location.reload();
+		});
+		socket.on('tempban', function(user){
+			if(nick == user){
+				var today = new Date();
+				today.setTime(today.getTime()+(24*60*60*1000));
+				document.cookie=name+'='+value+'=banstate;expires='+today.toGMTString()+'path=/';
+				location.reload();
+			}
 		});
     socket.on('ban', function(user){
     	if(nick == user){
