@@ -98,6 +98,7 @@
 				if(admin){
 					
 					// Admin commands only
+<<<<<<< HEAD
 					if(txt.search(/tempban/) != -1){
 						txt = txt.replace(/tempban\s/, '');
 						if(txt!=nick){
@@ -114,6 +115,10 @@
 					}
 					
 					if(txt.search(/mute/) != -1){
+=======
+					
+					if(txt.search(/mute/) != -1){ // NEEDS WORK
+>>>>>>> parent of 341ca67... Merge pull request #3 from fatbu/eamon-mods
 						txt = txt.replace(/mute\s/, '');
 						if(txt!=nick){
 							socket.emit('mute', txt);
@@ -134,6 +139,7 @@
 			alert('Username taken');
 			location.reload();
 		});
+<<<<<<< HEAD
 		socket.on('tempban', function(user){
 			if(nick == user){
 				var today = new Date();
@@ -148,6 +154,9 @@
 				location.reload();
     	}
     });
+=======
+    
+>>>>>>> parent of 341ca67... Merge pull request #3 from fatbu/eamon-mods
 		socket.on('mute', function(user){
 			if(nick == user){
 				$('#m').remove();
