@@ -4,18 +4,18 @@
     <title>Chat</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 16px Helvetica, Arial; color: red; background: black;}
+      body { font: 16px Helvetica, Arial; color: orange; background: black;}
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 100%;}
 			#clearchatdiv { float: right; padding: 10px;}
-			#clearchatbtn { width: 100px; height: 40px; padding: 10px; font-size: 14px; border-radius: 10px;}
+			#clearchatbtn { width: 100px; height: 40px; padding: 20px; font-size: 14px; border-radius: 10px;}
       #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto;}
       #messages li { padding: 5px;}
       #messages li:nth-child(odd) { background: black; }
     </style>
   </head>
   <body>
-    <p align = "center"><br /><h2>  CISChat, Developed by Eamon and Nicholas. </h2></p>
+    <p align = "center"><br /><strong><h1>CISChat</h1></strong> </p><p> <h4>Developed by Nicholas and Eamon</h4> </p>
 		<div id='clearchatdiv'><button id='clearchatbtn' onclick='$("#messages").empty(); $("#m").focus()'>Clear chat</button></div>
 		<audio><source src='ding.m4a'></audio>
     <ul id="messages"></ul>
@@ -37,8 +37,8 @@
 
 		appendMessage('Connecting to CISChat...');
     var socket = io.connect();
-		appendMessage('Today\'s Chat Color: Red');
-    appendMessage('MOTD: The truth is, we can\'t handle the truth.');
+		appendMessage('Today\'s Chat Color: Orange');
+    appendMessage('MOTD: Wow, so many protests against Trump xD');
 		var admin = false;
 
 		socket.on('verified', function(){ // Admin verification
@@ -100,6 +100,7 @@
 				return false;
 			}else{
       	socket.emit('chat message', {nickname: nick, message: txt});
+        appendMessage(nick, ' has been muted.')
       	$('#m').val('');
       	return false;
 			}

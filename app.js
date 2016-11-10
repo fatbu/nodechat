@@ -2,7 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 
 http.listen(port, console.log('listening on: '+port));
 
@@ -66,8 +66,6 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('mute', function(user){
-		io.emit('mute', user);
-    appendMessage(nick + 'get muted you skrub!')
 		console.log('muted ' + user);
 	});
 	socket.on('userdisconnect', function(nick){
