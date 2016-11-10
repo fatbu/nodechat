@@ -1,7 +1,11 @@
 # nodechat
 Simple, lightweight node.js chat server and client.
+
 Code is based off the example at the socket.io website.
+
 Sounds by theta4 from freesound.org.
+
+An example is here: [my school's chat server](https://cischat.herokuapp.com/). Please don't spam it...
 
 ## How to use
 Preparation:
@@ -25,4 +29,5 @@ external address: ***.***.***.***:3000
 ```
 
 Then go to the address in a browser :)
+
 Port forward for people outsite your network to connect to the external address.
