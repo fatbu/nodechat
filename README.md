@@ -21,6 +21,7 @@ $ node app
 listening on: 3000
 Operator password: ****
 local address: ***.***.***.***:3000
+external address: ***.***.***.***:3000
 ```
 
 Then go to the address in a browser :)
