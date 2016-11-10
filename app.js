@@ -70,7 +70,7 @@ io.on('connection', function(socket){
 		console.log('muted ' + user);
 	});
 	socket.on('userdisconnect', function(nick){
-		io.emit('chat message', {nickname: nick, message: nick+' left the conversation'});
+		io.emit('chat message', {nickname: nick, message:' left the conversation'});
 		console.log(nick + ' left the conversation')
 		nicknames.splice(nicknames.indexOf(nick), 1);
 	});

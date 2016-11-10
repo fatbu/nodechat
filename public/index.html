@@ -4,7 +4,7 @@
     <title>Chat</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 16px Helvetica, Arial; color: white; background: black;}
+      body { font: 16px Helvetica, Arial; color: gold; background: black;}
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 100%;}
 			#clearchatdiv { float: right; padding: 10px;}
@@ -29,14 +29,15 @@
 			$('#messages').append($('<li>').text(messagetext));
 		}
 		var nick = prompt('Nickname');
-		if(nick.trim() == '' || nick.length < 5){
+		if(nick.trim() == '' || nick.length < 2){
 			alert('Nickname too short');
 			location.reload();
 		};
 
-		appendMessage('Connecting...');
+		appendMessage('Welcome to CISChat! ~ Designed by Nick and Eamon');
     var socket = io.connect();
 		appendMessage('Connected.');
+    appendMessage('MOTD: Trump has won the election; Make America Great Again!');
 		var admin = false;
 
 		socket.on('verified', function(){ // Admin verification
