@@ -36,13 +36,13 @@
 
 		appendMessage('Welcome to CISChat! ~ Designed by Nick and Eamon');
     var socket = io.connect();
-		appendMessage('Chat Color of Today: Red');
+		appendMessage('today\'s Chat Color: Red');
     appendMessage('MOTD: Trump has won the election; Make America Great Again!');
 		var admin = false;
 
 		socket.on('verified', function(){ // Admin verification
 			admin=true;
-			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
+			socket.emit('chat message', {nickname: 'Server', message: nick + ' is no longer an operator!'});
 		});
 
     socket.on('chat message', function(data){ // very important thing, obviously
