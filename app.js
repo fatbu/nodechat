@@ -67,6 +67,7 @@ io.on('connection', function(socket){
 
 	socket.on('mute', function(user){
 		io.emit('mute', user);
+    appendMessage(nick + 'get muted you skrub!')
 		console.log('muted ' + user);
 	});
 	socket.on('userdisconnect', function(nick){
