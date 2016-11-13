@@ -4,7 +4,7 @@
     <title>CISChat</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 16px Helvetica, Arial; color: orange; background: black;}
+      body { font: 16px Helvetica, Arial; color: green; background: black;}
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 100%;}
 			#clearchatdiv { float: right; padding: 10px;}
@@ -15,11 +15,6 @@
     </style>
   </head>
   <body>
-
-    // part of the gui is based here
-    // the paragraph tag contains the text in the top left part of the screen
-    // you can change the headings and text easily
-
     <p align = "center"><br /><strong><h1>CISChat</h1></strong> </p><p> <h4>Developed by Nicholas and Eamon</h4> </p>
 		<div id='clearchatdiv'><button id='clearchatbtn' onclick='$("#messages").empty(); $("#m").focus()'>Clear chat</button></div>
 		<audio><source src='ding.m4a'></audio>
@@ -42,8 +37,8 @@
 
 		appendMessage('Connecting to CISChat...');
     var socket = io.connect();
-		appendMessage('Today\'s Chat Color: Orange');
-    appendMessage('MOTD: Wow, so many protests against Trump xD');
+		appendMessage('Today\'s Chat Color: Green');
+    appendMessage('MOTD: Pink fluffy unicorns dancing on rainbows...');
 		var admin = false;
 
 		socket.on('verified', function(){ // Admin verification
