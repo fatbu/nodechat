@@ -7,7 +7,7 @@
       body { font: 16px Helvetica, Arial; color: green; background: black;}
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 100%;}
-      span { color: gold; border-style: groove; border-color; white; }
+      span { color: purple; border-style: inset; border-color; green; }
 			#clearchatdiv { float: right; padding: 10px;}
 			#clearchatbtn { width: 100px; height: 40px; padding: 20px; font-size: 14px; border-radius: 10px;}
       #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto;}
@@ -27,7 +27,7 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="jquery-3.1.1.min.js"></script>
     <script>
-		function appendMessage(messagetext){
+		function appendNicholas(messagetext){
 			$('#messages').append($('<li>').text(messagetext));
 		}
 		var nick = prompt('Nickname');
@@ -36,10 +36,10 @@
 			location.reload();
 		};
 
-		appendMessage('Connecting to CISChat...');
+		appendNicholas('Connecting to CISChat...');
     var socket = io.connect();
-		appendMessage('Today\'s Chat Color: Green');
-    appendMessage('MOTD: Pink fluffy unicorns dancing on rainbows...');
+		appendNicholas('Today\'s Chat Color: Green');
+    appendNicholas('MOTD: Pink fluffy unicorns dancing on rainbows...');
 		var admin = false;
 
 		socket.on('verified', function(){ // Admin verification
@@ -48,14 +48,14 @@
 		});
 
     socket.on('chat message', function(data){ // very important thing, obviously
-      appendMessage(data.nickname + ': ' + data.message);
+      appendNicholas(data.nickname + ': ' + data.message);
 			$('audio')[0].play();
 		});
 
 		socket.on('usersonline', function(users){
-			appendMessage('Users online: ' + users.toString());
+			appendNicholas('Users online: ' + users.toString());
 		});
-		appendMessage('Logging in...');
+		appendNicholas('Logging in...');
 		socket.emit('userconnect', nick); // Send nickname
 		socket.emit('getusers');
     $('form').submit(function(){
@@ -101,7 +101,7 @@
 				return false;
 			}else{
       	socket.emit('chat message', {nickname: nick, message: txt});
-        appendMessage(nick, ' has been muted.')
+        appendNicholas(nick, ' has been muted.')
       	$('#m').val('');
       	return false;
 			}
