@@ -7,6 +7,7 @@
       body { font: 16px Helvetica, Arial; color: green; background: black;}
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 100%;}
+      span { color: gold; border-style: groove; border-color; white; }
 			#clearchatdiv { float: right; padding: 10px;}
 			#clearchatbtn { width: 100px; height: 40px; padding: 20px; font-size: 14px; border-radius: 10px;}
       #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto;}
@@ -15,7 +16,7 @@
     </style>
   </head>
   <body>
-    <p align = "center"><br /><strong><h1>CISChat</h1></strong> </p><p> <h4>Developed by Nicholas and Eamon</h4> </p>
+    <p align = "center"><br /><strong><h1><span>CISChat</span></h1></strong> </p><p> <h4>Developed by Nicholas and Eamon</h4> </p>
 		<div id='clearchatdiv'><button id='clearchatbtn' onclick='$("#messages").empty(); $("#m").focus()'>Clear chat</button></div>
 		<audio><source src='ding.m4a'></audio>
     <ul id="messages"></ul>
