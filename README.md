@@ -30,4 +30,4 @@ external address: ***.***.***.***:3000
 
 Then go to the address in a browser :)
 
-Port forward for people outsite your network to connect to the external address.
+Port forward for people outside your network to connect to the external address.
