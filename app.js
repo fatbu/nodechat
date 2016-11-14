@@ -2,7 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3000; // Allow for Heroku dynamic ports
 
 http.listen(port, console.log('listening on: '+port));
 
@@ -55,15 +55,15 @@ io.on('connection', function(socket){
 	socket.on('getusers', function(){
 		socket.emit('usersonline', nicknames);
 	});
-	socket.on('printadmin', function(){
+	socket.on('printadmin', function(){ // When someone does /operator without arguments in the chat console print the password in the command line/log.
 		console.log('Admin password: ' + adminpassword);
 	});
-	socket.on('verifyadmin', function(password){
+	socket.on('verifyadmin', function(password){ // Verify admin passcodes
 		if(password == adminpassword){
 			socket.emit('verified');
 		}
 	});
-	socket.on('userconnect', function(nick){
+	socket.on('userconnect', function(nick){ // When someone connects...
 		if(nicknames.indexOf(nick) != -1){
 			socket.emit('usernametaken', nick);
 		}else{
