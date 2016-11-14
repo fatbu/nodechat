@@ -7,7 +7,7 @@
       body { font: 16px Helvetica, Arial; color: green; background: black;}
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 100%;}
-      span { color: white; border-style: inset; border-color; green; }
+      span { color: white; border-style: inset; border-color: white; }
 			#clearchatdiv { float: right; padding: 10px;}
 			#clearchatbtn { width: 100px; height: 40px; padding: 20px; font-size: 14px; border-radius: 10px;}
       #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto;}
@@ -16,7 +16,7 @@
     </style>
   </head>
   <body>
-    <p align = "center"><br /><strong><h1><span>CISChat</span></h1></strong> </p><p><br /> <h4>Developed by Nicholas and Eamon</h4> </p>
+    <p align = "center"><br /><strong><h1><span>NicholasWoo</span></h1></strong> </p><p><br /> <h4>Developed by Nicholas and Eamon</h4> </p>
 		<div id='clearchatdiv'><button id='clearchatbtn' onclick='$("#messages").empty(); $("#m").focus()'>Clear chat</button></div>
 		<audio><source src='ding.m4a'></audio>
     <ul id="messages"></ul>
@@ -27,7 +27,7 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="jquery-3.1.1.min.js"></script>
     <script>
-		function appendNicholas(messagetext){
+		function appendMessage(messagetext){
 			$('#messages').append($('<li>').text(messagetext));
 		}
 		var nick = prompt('Nickname');
@@ -36,10 +36,10 @@
 			location.reload();
 		};
 
-		appendNicholas('Connecting to CISChat...');
+		appendMessage('Connecting to CISChat...');
     var socket = io.connect();
-		appendNicholas('Today\'s Chat Color: Green');
-    appendNicholas('MOTD: jella yam is so real <3');
+		appendMessage('Today\'s Chat Color: Green');
+    appendMessage('MOTD: jella yam is so real <3');
 		var admin = false;
 
 		socket.on('verified', function(){ // Admin verification
@@ -48,14 +48,14 @@
 		});
 
     socket.on('chat message', function(data){ // very important thing, obviously
-      appendNicholas(data.nickname + ': ' + data.message);
+      appendMessage(data.nickname + ': ' + data.message);
 			$('audio')[0].play();
 		});
 
 		socket.on('usersonline', function(users){
-			appendNicholas('Users online: ' + users.toString());
+			appendMessage('Users online: ' + users.toString());
 		});
-		appendNicholas('Logging in...');
+		appendMessage('Logging in...');
 		socket.emit('userconnect', nick); // Send nickname
 		socket.emit('getusers');
     $('form').submit(function(){
@@ -101,7 +101,7 @@
 				return false;
 			}else{
       	socket.emit('chat message', {nickname: nick, message: txt});
-        appendNicholas(nick, ' has been muted.')
+        appendMessage(nick, ' has been muted.')
       	$('#m').val('');
       	return false;
 			}
