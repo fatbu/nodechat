@@ -26,7 +26,8 @@ local address: ***.***.***.***:3000
 
 Then go to the address in a browser :)
 localhost:8080 works too
-Port forward for people outsite your network to connect to the external address.
+Port forward for people outside your network to connect to the external address.
 
 ## from the devs
 Eamon: hello what is your name? my name is eamon, i am one of the collaborators in this project. please enjoy it, feel free to copy this project and commit something. we will look at your code and approve/ disapprove it. :)
+Nick: not much to say... we need more devs
