@@ -15,7 +15,7 @@
     </style>
   </head>
   <body>
-
+    <h3 id='motd'></h3>
 		<div id='clearchatdiv'><button id='clearchatbtn' onclick='$("#messages").empty(); $("#m").focus()'>Clear chat</button></div>
 		<audio><source src='ding.m4a'></audio>
     <ul id="messages"></ul>
@@ -57,7 +57,6 @@
       appendMessage(data.nickname + ': ' + data.message);
 			$('audio')[0].play();
 		});
-
 		socket.on('usersonline', function(users){
 			appendMessage('Users online: ' + users.toString());
 		});
@@ -85,6 +84,8 @@
 					}
 				}
 
+
+
 				if(txt.search(/users/) != -1){
 					txt = txt.replace(/users\s/, '');
 					socket.emit('getusers');
@@ -105,6 +106,10 @@
 							socket.emit('mute', txt);
 						}
 					}
+          if(txt.search(/motd/) != -1){
+            txt = txt.replace(/motd\s/, '');
+            socket.emit('motd', txt);
+          }
 				}
 
 				// Clean up
@@ -131,6 +136,9 @@
 				$('#m').remove();
 			}
 		});
+    socket.on('motd', function(motd){
+      // NEEDS WORK!
+    });
 		window.onbeforeunload = function(){
 			socket.emit('userdisconnect', nick);
 		}
