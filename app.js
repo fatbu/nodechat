@@ -12,7 +12,7 @@ function randomIntInc(low, high) { // https://blog.tompawlak.org/generate-random
 }
 var adminpassword = randomIntInc(1000, 9999);
 
-console.log('Admin Password:' + adminpassword);
+console.log('Admin password: ' + adminpassword);
 
 console.log('local address: ' + require('ip').address() + ':' + port);
 getIP = require('external-ip')();
@@ -72,14 +72,18 @@ io.on('connection', function(socket){
 			console.log(nick + ' connected');
 		}
 	});
+  socket.on('permban', function(user){
+    io.emit('permban', user);
+    io.emit('chat message', {nickname: 'Server', message: user+' was permanently banned!'})
 
+  });
 	socket.on('mute', function(user){
 		io.emit('mute', user);
-    appendMessage(nick + 'get muted you skrub!')
-		console.log('muted ' + user);
+    io.emit('chat message', {nickname: 'Server', message: user+' was muted!'})
+
 	});
 	socket.on('userdisconnect', function(nick){
-		io.emit('chat message', {nickname: nick, message:' left the conversation'});
+		io.emit('chat message', {nickname: 'Server', message:nick+' left the conversation'});
 		console.log(nick + ' left the conversation')
 		nicknames.splice(nicknames.indexOf(nick), 1);
 	});
