@@ -7,6 +7,7 @@
       body { font: 16px Helvetica, Arial; color: white; background: black;}
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 100%;}
+      #motd { padding: 20px; font: 24px Helvetica, Arial}
 			#clearchatdiv { float: right; padding: 10px;}
 			#clearchatbtn { width: 100px; height: 40px; padding: 10px; font-size: 14px; border-radius: 10px;}
       #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto;}
@@ -15,6 +16,10 @@
     </style>
   </head>
   <body>
+
+    <div id='motd'></div>
+    <hr>
+
 		<div id='clearchatdiv'><button id='clearchatbtn' onclick='$("#messages").empty(); $("#m").focus()'>Clear chat</button></div>
 		<audio><source src='ding.m4a'></audio>
     <ul id="messages"></ul>
@@ -45,7 +50,9 @@
 
 
 		var admin = false;
-
+    socket.emit('getmotd', function(motd){
+      $('#motd').text(motd);
+    });
 		socket.on('verified', function(){ // Admin verification
 			admin=true;
 			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
@@ -55,7 +62,6 @@
       appendMessage(data.nickname + ': ' + data.message);
 			$('audio')[0].play();
 		});
-
 		socket.on('usersonline', function(users){
 			appendMessage('Users online: ' + users.toString());
 		});
@@ -83,6 +89,8 @@
 					}
 				}
 
+
+
 				if(txt.search(/users/) != -1){
 					txt = txt.replace(/users\s/, '');
 					socket.emit('getusers');
@@ -103,6 +111,10 @@
 							socket.emit('mute', txt);
 						}
 					}
+          if(txt.search(/motd/) != -1){
+            txt = txt.replace(/motd\s/, '');
+            socket.emit('motd', txt);
+          }
 				}
 
 				// Clean up
@@ -129,6 +141,10 @@
 				$('#m').remove();
 			}
 		});
+    socket.on('motd', function(motd){
+      // NEEDS WORK!
+      $('#motd').text(motd);
+    });
 		window.onbeforeunload = function(){
 			socket.emit('userdisconnect', nick);
 		}

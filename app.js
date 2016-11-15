@@ -3,7 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var port = process.env.PORT || 3000; // Allow for Heroku dynamic ports
-
+var messageoftheday = 'nodechat';
 http.listen(port, console.log('listening on: '+port));
 
 // admin password thing
@@ -82,6 +82,13 @@ io.on('connection', function(socket){
     io.emit('chat message', {nickname: 'Server', message: user+' was muted!'})
 
 	});
+  socket.on('motd', function(motd){
+    messageoftheday = motd;
+    io.emit('motd', messageoftheday);
+  })
+  socket.on('getmotd', function(){
+    socket.emit('motd', messageoftheday);
+  })
 	socket.on('userdisconnect', function(nick){
 		io.emit('chat message', {nickname: 'Server', message:nick+' left the conversation'});
 		console.log(nick + ' left the conversation')
