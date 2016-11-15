@@ -84,6 +84,7 @@ io.on('connection', function(socket){
 	});
   socket.on('motd', function(motd){
     messageoftheday = motd;
+    console.log('MOTD changed to: ' + messageoftheday);
     io.emit('motd', messageoftheday);
   })
   socket.on('getmotd', function(){
