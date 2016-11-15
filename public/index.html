@@ -40,7 +40,7 @@
     }
 
 		var nick = prompt('Nickname');
-		if(nick.trim() == '' || nick.length < 2){
+		if(nick.trim() == '' || nick.length < 3){
 			alert('Nickname too short');
 			location.reload();
 		};
@@ -78,7 +78,7 @@
 				// P.S. this is hackable xD
 
 
-				txt = txt.slice(1); // Get rid of the fisrt character
+				txt = txt.slice(1); // Get rid of the first character
 
 				if(txt.search(/operator/) != -1){ // NEEDS WORK
 					if(txt == 'operator'){ // is it JUST /operator? that will print the admin passcode in console
