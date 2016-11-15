@@ -5,7 +5,7 @@ Code is based off the example at the socket.io website.
 
 Sounds by theta4 from freesound.org.
 
-An example is here: [my school's chat server](https://cischat.herokuapp.com/). Please don't spam it...
+
 
 ## How to use
 Preparation:
