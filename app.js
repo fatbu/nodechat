@@ -86,6 +86,9 @@ io.on('connection', function(socket){
     messageoftheday = motd;
     io.emit('motd', messageoftheday);
   })
+  socket.on('getmotd', function(){
+    socket.emit('motd', messageoftheday);
+  })
 	socket.on('userdisconnect', function(nick){
 		io.emit('chat message', {nickname: 'Server', message:nick+' left the conversation'});
 		console.log(nick + ' left the conversation')

@@ -47,7 +47,9 @@
 
 
 		var admin = false;
-
+    socket.emit('getmotd', function(motd){
+      $('#motd').text(motd);
+    });
 		socket.on('verified', function(){ // Admin verification
 			admin=true;
 			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
