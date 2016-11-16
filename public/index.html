@@ -29,6 +29,10 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="jquery-3.1.1.min.js"></script>
     <script>
+    socket.emit('getmotd', function(motd){
+      $('#motd').text(motd);
+    });
+
 		function appendMessage(messagetext){
 			$('#messages').append($('<li>').text(messagetext));
 		}
@@ -50,9 +54,7 @@
 
 
 		var admin = false;
-    socket.emit('getmotd', function(motd){
-      $('#motd').text(motd);
-    });
+
 		socket.on('verified', function(){ // Admin verification
 			admin=true;
 			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
