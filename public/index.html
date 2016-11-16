@@ -29,13 +29,18 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="jquery-3.1.1.min.js"></script>
     <script>
-    socket.emit('getmotd', function(motd){
-      $('#motd').text(motd);
-    });
 
 		function appendMessage(messagetext){
 			$('#messages').append($('<li>').text(messagetext));
 		}
+
+    appendMessage('Connecting...');
+    var socket = io.connect();
+
+    socket.emit('getmotd', function(motd){
+      $('#motd').text(motd);
+    });
+
 
     if(localStorage.banned){
       while(true){
@@ -49,8 +54,7 @@
 			location.reload();
 		};
 
-		appendMessage('Connecting...');
-    var socket = io.connect();
+
 
 
 		var admin = false;
