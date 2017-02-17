@@ -1,34 +1,175 @@
 <!doctype html>
-<htmL>
+<html>
   <head>
-    <title>Nodechat</title>
+    <title>Chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 16px Helvetica, Arial; color: black; background: white;}
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 100%;}
+      #motd { padding: 20px; font: 24px Helvetica, Arial}
+			#clearchatdiv { float: right; padding: 10px;}
+			#clearchatbtn { width: 100px; height: 40px; padding: 10px; font-size: 14px; border-radius: 10px;}
+      #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto;}
+      #messages li { padding: 5px;}
+      #messages li:nth-child(odd) { background: white; }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font: 16px Helvetica, Arial; color: black; background: white;}
-    </style>
   </head>
   <body>
     <div class="container">
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="index.html">Home</a></li>
+            <li role="presentation" class="active"><a href="home.html">Home</a></li>
             <li role="presentation"><a href="https://github.com/fatbu/nodechat">Github Page</a></li>
-            <li role="presentation"><a href="chat">Chat App</a></li>
+            <li role="presentation"><a href="index.html">Chat App</a></li>
           </ul>
         </nav>
         <h3 class="text-muted">Nodechat</h3>
       </div>
-
-      <div class="jumbotron">
-        <h1> - Nodechat - </h1>
-        <p class="lead">Nodechat is a Node.js + Socket.io Web Chat application developed by some idiots. It includes commands such as /mute and /ban, and also has an admin and message of the day system.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Github Page</a></p>
-      </div>
     </div>
+
+    <div id='motd'></div>
+    <hr>
+
+		<div id='clearchatdiv'><button id='clearchatbtn' onclick='$("#messages").empty(); $("#m").focus()'>Clear chat</button></div>
+		<audio><source src='ding.m4a'></audio>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" />
+    </form>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+
+		function appendMessage(messagetext){
+			$('#messages').append($('<li>').text(messagetext));
+		}
+
+    appendMessage('Connecting...');
+    var socket = io.connect();
+
+    socket.emit('getmotd', function(motd){
+      $('#motd').text(motd);
+    });
+
+
+    if(localStorage.banned){
+      while(true){
+        alert('You have been permanently banned from this server!');
+      }
+    }
+
+		var nick = prompt('Nickname');
+		if(nick.trim() == '' || nick.length < 3){
+			alert('Nickname too short');
+			location.reload();
+		};
+
+
+
+
+		var admin = false;
+
+		socket.on('verified', function(){ // Admin verification
+			admin=true;
+			socket.emit('chat message', {nickname: 'Server', message: nick + ' is now an operator!'});
+		});
+
+    socket.on('chat message', function(data){ // very important thing, obviously
+      appendMessage(data.nickname + ': ' + data.message);
+			$('audio')[0].play();
+		});
+		socket.on('usersonline', function(users){
+			appendMessage('Users online: ' + users.toString());
+		});
+		appendMessage('Logging in...');
+		socket.emit('userconnect', nick); // Send nickname
+		socket.emit('getusers');
+    $('form').submit(function(){
+			var txt = $('#m').val();
+			if(txt.charAt(0)=='/'){
+
+
+				// Commands!
+				// Work in progress
+				// P.S. this is hackable xD
+
+
+				txt = txt.slice(1); // Get rid of the first character
+
+				if(txt.search(/operator/) != -1){ // NEEDS WORK
+					if(txt == 'operator'){ // is it JUST /operator? that will print the admin passcode in console
+						socket.emit('printadmin');
+					}else{
+						txt = txt.replace(/operator\s/, '');
+						socket.emit('verifyadmin', parseInt(txt));
+					}
+				}
+
+
+
+				if(txt.search(/users/) != -1){
+					txt = txt.replace(/users\s/, '');
+					socket.emit('getusers');
+				}
+
+				if(admin){
+
+					// Admin commands only
+          if(txt.search(/permban/) != -1){
+            txt = txt.replace(/permban\s/, '');
+            if(txt!=nick){
+              socket.emit('permban', txt);
+            }
+          }
+					if(txt.search(/mute/) != -1){
+						txt = txt.replace(/mute\s/, '');
+						if(txt!=nick){
+							socket.emit('mute', txt);
+						}
+					}
+          if(txt.search(/motd/) != -1){
+            txt = txt.replace(/motd\s/, '');
+            socket.emit('motd', txt);
+          }
+				}
+
+				// Clean up
+				$('#m').val('');
+				return false;
+			}else{
+      	socket.emit('chat message', {nickname: nick, message: txt});
+      	$('#m').val('');
+      	return false;
+			}
+    });
+		socket.on('usernametaken', function(nickname){
+			alert('Username taken');
+			location.reload();-w
+		});
+    socket.on('permban', function(user){
+      if(nick == user){
+        localStorage.banned=true;
+        location.reload();
+      }
+    });
+		socket.on('mute', function(user){
+			if(nick == user){
+				$('#m').remove();
+			}
+		});
+    socket.on('motd', function(motd){
+      // NEEDS WORK!
+      $('#motd').text(motd);
+    });
+		window.onbeforeunload = function(){
+			socket.emit('userdisconnect', nick);
+		}
+		</script>
   </body>
-  </html
+</html>
