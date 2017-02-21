@@ -4,18 +4,35 @@
     <title>Chat</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 16px Helvetica, Arial; color: white; background: black;}
+      body { font: 16px Helvetica, Arial; color: black; background: white;}
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 100%;}
-      #motd { padding: 20px; font: 24px Helvetica, Arial}
+      #motd { padding: 20px; font: 24px Helvetica, Arial, color: black;}
 			#clearchatdiv { float: right; padding: 10px;}
 			#clearchatbtn { width: 100px; height: 40px; padding: 10px; font-size: 14px; border-radius: 10px;}
       #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto;}
       #messages li { padding: 5px;}
-      #messages li:nth-child(odd) { background: black; }
+      #messages li:nth-child(odd) { background: white   ; }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="http://nodechat.netlify.com">Home</a></li>
+            <li role="presentation"><a href="https://github.com/fatbu/nodechat">Github Page</a></li>
+            <li role="presentation"><a href="http://cischat.herokuapp.com">Chat App</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Nodechat</h3>
+      </div>
+    </div>
+    <hr />
 
     <div id='motd'></div>
     <hr>
@@ -134,7 +151,7 @@
     });
 		socket.on('usernametaken', function(nickname){
 			alert('Username taken');
-			location.reload();
+			location.reload();-w
 		});
     socket.on('permban', function(user){
       if(nick == user){
