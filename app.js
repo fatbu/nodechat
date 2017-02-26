@@ -25,7 +25,7 @@ getIP(function(err, ip){
 });
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/ding.m4a', function(req, res){
