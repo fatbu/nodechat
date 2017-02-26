@@ -58,7 +58,6 @@
     margin-bottom: 5px;">
 
 		<div id='clearchatdiv'><button id='clearchatbtn' onclick='$("#messages").empty(); $("#m").focus()'>Clear chat</button></div>
-		<audio><source src='ding.m4a'></audio>
     <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off" />
@@ -103,7 +102,6 @@
 
     socket.on('chat message', function(data){ // very important thing, obviously
       appendMessage(data.nickname + ': ' + data.message);
-			$('audio')[0].play();
 		});
 		socket.on('usersonline', function(users){
 			appendMessage('Users online: ' + users.toString());
