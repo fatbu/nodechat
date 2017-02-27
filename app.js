@@ -27,9 +27,6 @@ getIP(function(err, ip){
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
-app.get('/jquery-3.1.1.min.js', function(req, res){
-	res.sendFile(__dirname + '/public/jquery-3.1.1.min.js');
-});
 
 function randomInt(low, high){
     return Math.floor(Math.random() * (high - low + 1) + low);
