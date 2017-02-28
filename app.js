@@ -66,13 +66,13 @@ io.on('connection', function(socket){
 	});
   socket.on('permban', function(user){
     io.emit('permban', user);
-    io.emit('chat message', {nickname: 'Server', message: user+' was permanently banned!'})
-
+    io.emit('chat message', {nickname: 'Server', message: user+' was permanently banned!'} )
+    console.log(user+' was permanently banned!');
   });
 	socket.on('mute', function(user){
 		io.emit('mute', user);
-    io.emit('chat message', {nickname: 'Server', message: user+' was muted!'})
-
+        io.emit('chat message', {nickname: 'Server', message: user+' was muted!'})
+        console.log(user+' was permanently banned!');
 	});
   socket.on('motd', function(motd){
     messageoftheday = motd;
