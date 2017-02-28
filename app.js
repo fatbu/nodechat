@@ -72,7 +72,7 @@ io.on('connection', function(socket){
 	socket.on('mute', function(user){
 		io.emit('mute', user);
         io.emit('chat message', {nickname: 'Server', message: user+' was muted!'})
-        console.log(user+' was permanently banned!');
+        console.log(user+' was muted!');
 	});
   socket.on('motd', function(motd){
     messageoftheday = motd;
