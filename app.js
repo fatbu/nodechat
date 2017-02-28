@@ -25,7 +25,7 @@ getIP(function(err, ip){
 });
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + 'public/index.html'); // Home chat page
 });
 
 function randomInt(low, high){
