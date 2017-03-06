@@ -19,6 +19,6 @@ npm start
 ```
 OR:
 ```
-node app
+node app [port]
 ```
-nodechat runs on port 3000. will be adding custom ports soon
+nodechat runs on port 3000 by default.

@@ -2,7 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var port = process.env.PORT || 3000; // Allow for Heroku dynamic ports
+var port = process.env.PORT || process.argv[2] || 3000; // Allow for Heroku dynamic ports and custom ports
 var messageoftheday = 'welcome'; // Default MOTD
 http.listen(port, console.log('listening on: '+port));
 
