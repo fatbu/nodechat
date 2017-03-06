@@ -1,20 +1,22 @@
 {
-  "name": "nodechat",
-  "version": "2.0.1",
-  "description": "socket.io and node.js chat server",
+  "name": "socket-chat-example",
+  "version": "0.4.3",
+  "description": "socket.io chat application",
   "dependencies": {
     "express": "^4.14.0",
     "socket.io": "^1.4.8",
-	"external-ip": "latest",
-    "ip": "latest",
+
+		"external-ip": "latest",
+
+		"ip": "latest"
+
   },
-    "repository": {
+	"repository": {
 	  "type": "git",
 	  "url": "git://github.com/fatbu/nodechat.git"
 	},
 	"scripts": {
 		"start": "node app.js"
 	},
-	"main": "app.js",
-    "author": "fatbu"
+	"main": "app.js"
 }
