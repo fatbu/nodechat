@@ -25,15 +25,7 @@ getIP(function(err, ip){
 });
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/public/index.html');
-});
-
-app.get('/ding.m4a', function(req, res){
-	res.sendFile(__dirname + '/public/ding.m4a');
-});
-
-app.get('/jquery-3.1.1.min.js', function(req, res){
-	res.sendFile(__dirname + '/public/jquery-3.1.1.min.js');
+  res.sendFile(__dirname + '/public/index.html'); // Home chat page
 });
 
 function randomInt(low, high){
@@ -74,13 +66,13 @@ io.on('connection', function(socket){
 	});
   socket.on('permban', function(user){
     io.emit('permban', user);
-    io.emit('chat message', {nickname: 'Server', message: user+' was permanently banned!'})
-
+    io.emit('chat message', {nickname: 'Server', message: user+' was permanently banned!'} )
+    console.log(user+' was permanently banned!');
   });
 	socket.on('mute', function(user){
 		io.emit('mute', user);
-    io.emit('chat message', {nickname: 'Server', message: user+' was muted!'})
-
+        io.emit('chat message', {nickname: 'Server', message: user+' was muted!'})
+        console.log(user+' was muted!');
 	});
   socket.on('motd', function(motd){
     messageoftheday = motd;

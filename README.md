@@ -1,33 +1,13 @@
-# nodechat
-Simple, lightweight node.js chat server and client.
+# nodechat-2
+Node.js chat server + client... v2! efficient, fast and better :)
 
-Code is based off the example at the socket.io website.
+Setup:
+<pre><code>npm install<br></code></pre>
 
-Sounds by theta4 from freesound.org.
+How to use:
+<pre><code>npm start</code></pre>
+OR:
+<pre><code>node app</code></pre>
 
+Yey :)
 
-
-## How to use
-Preparation:
-```
-$ git clone https://github.com/fatbu/nodechat.git
-$ cd nodechat
-$ npm install
-```
-
-######How to use
-`node app`
-
-The default port is 3000.
-
-```
-$ node app
-listening on: 3000
-Operator password: ****
-local address: ***.***.***.***:3000
-external address: ***.***.***.***:3000
-```
-
-Then go to the address in a browser :)
-
-Port forward for people outside your network to connect to the external address.

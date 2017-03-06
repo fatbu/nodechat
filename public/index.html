@@ -1,6 +1,26 @@
 <!doctype html>
 <html>
   <head>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="shortcut icon" href="icons/favicon.ico" type="image/ico" />
+
     <title>Chat</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -9,9 +29,8 @@
       form input { border: 0; padding: 10px; width: 100%;}
       #title { padding: 10px; margin-top: 10px; margin-bottom: 10px;}
       #motd { padding: 10px; font: 24px Helvetica, Arial, color: black; margin-top: 10px; margin-bottom: 10px}
-
-	  #clearchatdiv { float: right; padding: 10px;}
-	  #clearchatbtn { width: 100px; height: 40px; padding: 10px; font-size: 14px; border-radius: 10px;}
+      #clearchatdiv { float: right; padding: 10px;}
+      #clearchatbtn { width: 80px; height: 40px; padding: 5px; font-size: 14px; border-radius: 5px;}
       #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto;}
       #messages li { padding: 3px;}
       #messages li:nth-child(odd) { background: white   ; }
@@ -22,29 +41,49 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="http://nodechat.netlify.com">Home</a></li>
-            <li role="presentation"><a href="https://github.com/fatbu/nodechat">Github Page</a></li>
-          </ul>
-        </nav>
-        <h3 id="title" class="text-muted">Nodechat</h3>
-      </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle Navbar</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Nodechat 2</a>
+          </div>            <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="http://nodechat.netlify.com/nodechat2">Home</a></li>
+              <li><a href="mailto:tszhw2022@student.cis.edu.hk?Subject=Nodechat%20Suggestions" target="_top">Contact Us</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://github.com/fatbu/nodechat/tree/Nodechat-V2">Github Page</a></li>
+                  <li><a href="#">Download Nodechat</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
     <hr style="margin-top: 5px;
     margin-bottom: 5px;">
 
     <h3 id='motd'></h3>
     <hr style="margin-top: 5px;
     margin-bottom: 5px;">
-
-		<div id='clearchatdiv'><button id='clearchatbtn' onclick='$("#messages").empty(); $("#m").focus()'>Clear chat</button></div>
-		<audio><source src='ding.m4a'></audio>
+    <script>
+        var clearChat = function(){
+            $("#messages").empty();
+            $("#m").focus();
+            socket.emit("getusers");
+        };
+    </script>
+		<div id='clearchatdiv'><button id='clearchatbtn' onclick='clearChat();'>Clear chat</button></div>
     <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off" />
     </form>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
 
@@ -84,7 +123,6 @@
 
     socket.on('chat message', function(data){ // very important thing, obviously
       appendMessage(data.nickname + ': ' + data.message);
-			$('audio')[0].play();
 		});
 		socket.on('usersonline', function(users){
 			appendMessage('Users online: ' + users.toString());
