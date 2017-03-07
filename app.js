@@ -34,8 +34,6 @@ function randomInt(low, high){
 
 var nicknames = [];
 
-setTimeout(function(){people_typing = []}, 1000);
-
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
