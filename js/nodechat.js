@@ -4,16 +4,16 @@ var clearChat = function() {
     socket.emit("getusers");
 };
 
-function appendMessage(a) {
-    $("#messages").append($("<li>").text(a));
+function appendMessage(txt) {
+    $("#messages").append($("<li>").text(txt));
 }
 
 appendMessage("Connecting...");
 
 var socket = io.connect();
 
-socket.emit("getmotd", function(a) {
-    $("#motd").text(a);
+socket.emit("getmotd", function(motd) {
+    $("#motd").text(motd);
 });
 
 if (localStorage.banned) while (true) alert("You have been permanently banned from this server!");
@@ -35,12 +35,12 @@ socket.on("verified", function() {
     });
 });
 
-socket.on("chat message", function(a) {
-    appendMessage(a.nickname + ": " + a.message);
+socket.on("chat message", function(msg) {
+    appendMessage(msg.nickname + ": " + msg.message);
 });
 
-socket.on("usersonline", function(a) {
-    appendMessage("Users online: " + a.toString());
+socket.on("usersonline", function(usersList) {
+    appendMessage("Users online: " + usersList.toString());
 });
 
 appendMessage("Logging in...");
@@ -94,21 +94,21 @@ socket.on("usernametaken", function(a) {
     location.reload();
 });
 
-socket.on("permban", function(a) {
-    if (nick == a && !admin) {
+socket.on("permban", function(username) {
+    if (nick == username) {
         localStorage.banned = true;
         location.reload();
     }
 });
 
-socket.on("mute", function(a) {
-    if (nick == a && !admin){
+socket.on("mute", function(username) {
+    if (nick == username){
         $("#m").remove();
     }
 });
 
-socket.on("motd", function(a) {
-    $("#motd").text(a);
+socket.on("motd", function(motd) {
+    $("#motd").text(motd);
 });
 
 window.onbeforeunload = function() {
