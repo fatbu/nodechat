@@ -52,6 +52,7 @@ socket.emit("getusers");
 $("form").submit(function() {
     var a = $("#m").val();
     if ("/" == a.charAt(0)) {
+        // COMMANDS
         a = a.slice(1);
         if (a.search(/operator/) != -1) if ("operator" == a) socket.emit("printadmin"); else {
             a = a.replace(/operator\s/, "");
@@ -62,6 +63,7 @@ $("form").submit(function() {
             socket.emit("getusers");
         }
         if (admin) {
+            // ADMIN COMMANDS
             if (a.search(/permban/) != -1) {
                 a = a.replace(/permban\s/, "");
                 if (a != nick) socket.emit("permban", a);
@@ -93,14 +95,16 @@ socket.on("usernametaken", function(a) {
 });
 
 socket.on("permban", function(a) {
-    if (nick == a) {
+    if (nick == a && !admin) {
         localStorage.banned = true;
         location.reload();
     }
 });
 
 socket.on("mute", function(a) {
-    if (nick == a) $("#m").remove();
+    if (nick == a && !admin){
+        $("#m").remove();
+    }
 });
 
 socket.on("motd", function(a) {
