@@ -27,7 +27,9 @@ getIP(function(err, ip){
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html'); // Home chat page
 });
-
+app.get('/js/nodechat.js', function(req, res){
+    res.sendFile(__dirname + '/js/nodechat.js');
+});
 function randomInt(low, high){
     return Math.floor(Math.random() * (high - low + 1) + low);
 }
