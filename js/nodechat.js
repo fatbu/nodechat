@@ -89,7 +89,7 @@ $("form").submit(function() {
     }
 });
 
-socket.on("usernametaken", function(a) {
+socket.on("usernametaken", function(username) {
     alert("Username taken");
     location.reload();
 });
