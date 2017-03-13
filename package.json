@@ -1,19 +1,19 @@
 {
-  "name": "nodechat",
-  "version": "2.5.0",
-  "description": "node.js and socket.io chat application",
-  "dependencies": {
-    "express": "^4.14.0",
-    "socket.io": "^1.4.8",
-	"external-ip": "latest",
-	"ip": "latest"
-  },
-	"repository": {
-	  "type": "git",
-	  "url": "git://github.com/fatbu/nodechat.git"
-	},
-	"scripts": {
-		"start": "node app.js"
-	},
-	"main": "app.js"
+    "name": "nodechat",
+    "version": "2.5.0",
+    "description": "node.js and socket.io chat application",
+    "dependencies": {
+        "express": "^4.14.0",
+        "socket.io": "^1.4.8",
+        "external-ip": "latest",
+        "ip": "latest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/fatbu/nodechat.git"
+    },
+    "scripts": {
+        "start": "node app.js"
+    },
+    "main": "app.js"
 }
