@@ -26,6 +26,7 @@ if ("" == nick.trim() || nick.length < 3) {
 }
 
 var admin = false;
+var chatroom = "lobby";
 
 socket.on("verified", function() {
     admin = true;
@@ -37,7 +38,9 @@ socket.on("verified", function() {
 
 socket.on("chat message", function(msg) {
     if(msg.nickname){
-        appendMessage(msg.nickname + ": " + msg.message);
+        if(msg.chatroom == chatroom){
+            appendMessage(msg.nickname + ": " + msg.message);
+        }
     }else{
         // Announcements
         appendMessage(msg.message);
@@ -67,6 +70,15 @@ $("form").submit(function() {
             a = a.replace(/users\s/, "");
             socket.emit("getusers");
         }
+        if (a.search(/chatroom/) != -1){
+            a = a.replace(/chatroom\s/, "");
+            if(a){
+                chatroom = a;
+                appendMessage("You are now in \"" + chatroom + "\"");
+            }else{
+                appendMessage("You are in \"" + chatroom + "\"");
+            }
+        }
         if (admin) {
             // ADMIN COMMANDS
             if (a.search(/permban/) != -1) {
@@ -87,7 +99,8 @@ $("form").submit(function() {
     } else {
         socket.emit("chat message", {
             nickname: nick,
-            message: a
+            message: a,
+            chatroom: chatroom
         });
         $("#m").val("");
         return false;
