@@ -26,7 +26,7 @@ if ("" == nick.trim() || nick.length < 3) {
 }
 
 var admin = false;
-var chatroom = "lobby";
+var chatroom = "Lobby";
 
 socket.on("verified", function() {
     admin = true;
