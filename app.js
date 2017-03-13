@@ -37,9 +37,7 @@ io.on('connection', function(socket){
         io.emit('chat message', msg);
         console.log("[" + msg.chatroom + "] " + msg.nickname + ': ' + msg.message);
     });
-
     // PUT ALL SOCKET.IO MESSAGE HANDLING BELOW
-
     socket.on('getusers', function(){
         socket.emit('usersonline', nicknames);
     });
