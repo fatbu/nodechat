@@ -36,7 +36,12 @@ socket.on("verified", function() {
 });
 
 socket.on("chat message", function(msg) {
-    appendMessage(msg.nickname + ": " + msg.message);
+    if(msg.nickname){
+        appendMessage(msg.nickname + ": " + msg.message);
+    }else{
+        // Announcements
+        appendMessage(msg.message);
+    }
 });
 
 socket.on("usersonline", function(usersList) {

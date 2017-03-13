@@ -56,18 +56,18 @@ io.on('connection', function(socket){
 			socket.emit('usernametaken', nick);
 		}else{
 			nicknames.push(nick);
-			io.emit('chat message', {nickname: 'Server', message: nick+' connected'});
+			io.emit('chat message', {nickname: '', message: nick+' connected'});
 			console.log(nick + ' connected');
 		}
 	});
   socket.on('permban', function(user){
     io.emit('permban', user);
-    io.emit('chat message', {nickname: 'Server', message: user+' was permanently banned!'} )
+    io.emit('chat message', {nickname: '', message: user+' was permanently banned!'} )
     console.log(user+' was permanently banned!');
   });
 	socket.on('mute', function(user){
 		io.emit('mute', user);
-        io.emit('chat message', {nickname: 'Server', message: user+' was muted!'})
+        io.emit('chat message', {nickname: '', message: user+' was muted!'})
         console.log(user+' was muted!');
 	});
   socket.on('motd', function(motd){
@@ -79,7 +79,7 @@ io.on('connection', function(socket){
     socket.emit('motd', messageoftheday);
   })
 	socket.on('userdisconnect', function(nick){
-		io.emit('chat message', {nickname: 'Server', message:nick+' left the conversation'});
+		io.emit('chat message', {nickname: '', message:nick+' left the conversation'});
 		console.log(nick + ' left the conversation')
 		nicknames.splice(nicknames.indexOf(nick), 1);
 	});
