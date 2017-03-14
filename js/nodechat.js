@@ -23,6 +23,9 @@ var nick = prompt("Nickname");
 if ("" == nick.trim() || nick.length < 3) {
     alert("Nickname too short");
     location.reload();
+}else if (nick.length > 12) {
+    alert("Nickname too long");
+    location.reload();
 }
 
 var admin = false;
