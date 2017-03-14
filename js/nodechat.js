@@ -10,7 +10,7 @@ function appendMessage(txt) {
 
 appendMessage("Connecting...");
 
-var socket = io.connect();
+var socket = io.connect(); socket.socket.on('error', function (reason){ console.error('Unable to connect Socket.IO', reason); }
 
 socket.emit("getmotd", function(motd) {
     $("#motd").text(motd);
@@ -42,7 +42,7 @@ socket.on("verified", function() {
 socket.on("chat message", function(msg) {
     if(msg.nickname){
         if(msg.chatroom == chatroom){
-            appendMessage(msg.nickname + ": " + msg.message);
+            appendMessage(msg.nickname + " [" + chatroom + "] "+ ": " + msg.message);
         }
     }else{
         // Announcements
@@ -82,6 +82,9 @@ $("form").submit(function() {
                 appendMessage("You are now in \"" + chatroom + "\"");
             }else{
                 appendMessage("You are in \"" + chatroom + "\"");
+            }
+        if (a.search(/clear/) != -1) {
+            clearChat();
             }
         }
         if (admin) {
