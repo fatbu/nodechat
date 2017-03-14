@@ -54,7 +54,7 @@ io.on('connection', function(socket){
             socket.emit('usernametaken', nick);
         }else{
             nicknames.push(nick);
-            io.emit('chat message', {nickname: '', message: nick+' connected'});
+            socket.broadcast.emit('chat message', {nickname: '', message: nick+' connected'});
             console.log(nick + ' joined the conversation');
         }
     });

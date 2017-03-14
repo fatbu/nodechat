@@ -58,6 +58,8 @@ appendMessage("Logging in...");
 
 socket.emit("userconnect", nick);
 
+appendMessage("You are in \"" + chatroom + "\"");
+
 socket.emit("getusers");
 
 $("form").submit(function() {
