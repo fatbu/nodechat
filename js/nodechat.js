@@ -42,7 +42,7 @@ socket.on("verified", function() {
 socket.on("chat message", function(msg) {
     if(msg.nickname){
         if(msg.chatroom == chatroom){
-            appendMessage(msg.nickname + " [" + chatroom + "] "+ ": " + msg.message);
+            appendMessage(msg.nickname + " [" + msg.chatroom + "] "+ ": " + msg.message);
         }
     }else{
         // Announcements
@@ -84,7 +84,7 @@ $("form").submit(function() {
                 appendMessage("You are in \"" + chatroom + "\"");
             }
         if (a.search(/clear/) != -1) {
-            clearChat();
+            socket.emit(clearChat());
             }
         }
         if (admin) {
