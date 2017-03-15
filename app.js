@@ -36,7 +36,7 @@ var nicknames = [];
 io.on('connection', function(socket){
     socket.on('chat message', function(msg){
         io.emit('chat message', msg);
-        console.log("[" + msg.chatroom + "] " + msg.nickname + ': ' + msg.message);
+        console.log("[" + msg.chatroom + "] " + msg.nickname + ": "  + msg.message);
     });
     // PUT ALL SOCKET.IO MESSAGE HANDLING BELOW
     socket.on('getusers', function(){

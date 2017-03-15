@@ -42,7 +42,7 @@ socket.on("verified", function() {
 socket.on("chat message", function(msg) {
     if(msg.nickname){
         if(msg.chatroom == chatroom){
-            appendMessage("[" + msg.chatroom + "] " + msg.nickname +  ":" + msg.message);
+            appendMessage("[" + msg.chatroom + "] " + msg.nickname +  ": " + msg.message);
         }
     }else{
         // Announcements
