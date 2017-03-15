@@ -1,3 +1,5 @@
+console.log('Initializing...');
+
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -13,7 +15,7 @@ function randomIntInc(low, high) { // https://blog.tompawlak.org/generate-random
 }
 var adminpassword = randomIntInc(1000, 9999);
 
-console.log('Admin password: ' + adminpassword);
+console.log('Operator password: ' + adminpassword);
 
 console.log('local address: ' + require('ip').address() + ':' + port);
 getIP = require('external-ip')();
