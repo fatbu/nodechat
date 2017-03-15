@@ -1,6 +1,7 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+app.use(require('express').static(__dirname + '/public'));
 
 var port = process.env.PORT || process.argv[2] || 3000; // Allow for Heroku dynamic ports and custom ports
 var messageoftheday = 'welcome'; // Default MOTD
@@ -23,8 +24,6 @@ getIP(function(err, ip){
         console.log('external address: ' + ip + ':' + port);
     }
 });
-
-require('./routes.js')(app);
 
 function randomInt(low, high){
     return Math.floor(Math.random() * (high - low + 1) + low);
