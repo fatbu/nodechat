@@ -6,6 +6,7 @@ var clearChat = function() {
 
 function appendMessage(txt) {
     $("#messages").append($("<li>").text(txt));
+    window.scrollTo(0,document.body.scrollHeight);
 }
 
 appendMessage("Connecting...");
