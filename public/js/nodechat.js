@@ -30,7 +30,7 @@ if ("" == nick.trim() || nick.length < 3) {
 }
 
 var admin = false;
-var chatroom = "Lobby";
+var chatroom = "lobby";
 
 socket.on("verified", function() {
     admin = true;
@@ -79,7 +79,7 @@ $("form").submit(function() {
         if (a.search(/chatroom/) != -1){
             a = a.replace(/chatroom\s/, "");
             if(a){
-                chatroom = a;
+                chatroom = a.toLowerCase();;
                 appendMessage("You are now in \"" + chatroom + "\"");
             }else{
                 appendMessage("You are in \"" + chatroom + "\"");
