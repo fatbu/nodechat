@@ -17,8 +17,6 @@ socket.emit("getmotd", function(motd) {
     $("#motd").text(motd);
 });
 
-if (localStorage.banned) while (true) alert("You have been permanently banned from this server!");
-
 var nick = prompt("Nickname");
 
 if ("" == nick.trim() || nick.length < 3) {
@@ -90,10 +88,6 @@ $("form").submit(function() {
         }
         if (admin) {
             // ADMIN COMMANDS
-            if (a.search(/permban/) != -1) {
-                a = a.replace(/permban\s/, "");
-                if (a != nick) socket.emit("permban", a);
-            }
             if (a.search(/mute/) != -1) {
                 a = a.replace(/mute\s/, "");
                 if (a != nick) socket.emit("mute", a);
@@ -119,13 +113,6 @@ $("form").submit(function() {
 socket.on("usernametaken", function(username) {
     alert("Username taken");
     location.reload();
-});
-
-socket.on("permban", function(username) {
-    if (nick == username) {
-        localStorage.banned = true;
-        location.reload();
-    }
 });
 
 socket.on("mute", function(username) {
