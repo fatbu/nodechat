@@ -34,6 +34,10 @@ function randomInt(low, high){
 var nicknames = [];
 
 io.on('connection', function(socket){
+    process.on('SIGINT', function(){
+        io.emit('chat message', {message: "Server closed"});
+        process.exit();
+    });
     socket.on('chat message', function(msg){
         io.emit('chat message', msg);
         console.log("[" + msg.chatroom + "] " + msg.nickname + ": "  + msg.message);
