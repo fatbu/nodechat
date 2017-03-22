@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 console.log('Initializing...');
 
 var app = require('express')();
