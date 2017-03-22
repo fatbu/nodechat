@@ -124,7 +124,9 @@ socket.on("mute", function(username) {
 socket.on("motd", function(motd) {
     $("#motd").text(motd);
 });
-
+socket.on("disconnect", function(){
+    appendMessage("Disconnected. Please check your connection");
+});
 window.onbeforeunload = function() {
     socket.emit("userdisconnect", nick);
 };
