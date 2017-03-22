@@ -1,7 +1,21 @@
 <!doctype html>
 <html>
 <head>
+  body[data-online='false'] #onlinelink { display:none; }
+</style>
+<a > If online, chat will be enabled.<a>
+<a id=onlinelink href=".."> Chat  (only when online) </a>
+<script>
+window.addEventListener('load', function() {
 
+function updateOnlineStatus(event) {
+   document.body.setAttribute("data-online", navigator.onLine);
+}
+updateOnlineStatus();
+window.addEventListener('online',  updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+});
+</script>
     <link rel="apple-touch-icon" sizes="57x57" href="icons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="icons/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="icons/apple-icon-72x72.png">
