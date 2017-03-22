@@ -1,7 +1,12 @@
 var clearChat = function() {
-    $("#messages").empty();
+    var messages = $("#messages");
+    messages.fadeToggle("slow");
+    messages.empty();
     $("#m").focus();
-    socket.emit("getusers");
+    setTimeout(function(){
+        socket.emit("getusers");
+        messages.fadeToggle("fast");
+    }, 500);
 };
 
 function appendMessage(txt) {
