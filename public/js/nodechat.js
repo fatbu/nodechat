@@ -1,6 +1,6 @@
 var clearChat = function() {
     var messages = $("#messages");
-    messages.fadeToggle("slow");
+    messages.fadeToggle("fast");
     messages.empty();
     $("#m").focus();
     setTimeout(function(){
