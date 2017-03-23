@@ -6,17 +6,38 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 app.use(require('express').static(__dirname + '/public'));
+var fs = require('fs');
+if(!fs.existsSync(__dirname + '/config')){
+    // No config file
+    console.log('No configuration file detected. Generating file...')
+    fs.writeFile(__dirname + '/config', `# nodechat configuration file
 
-var port = process.env.PORT || process.argv[2] || 3000; // Allow for Heroku dynamic ports and custom ports
-var messageoftheday = 'welcome'; // Default MOTD
+    # Port to run on
+    port 3000
+
+    # Starting MOTD
+    motd welcome
+
+    # Operator password
+    operator_password 12345
+    `, function(err){
+        if(err){
+            console.error(err);
+        }else{
+            console.log('Configuration file generated.')
+        }
+    });
+}
+
+var configuration = require('very-simple-config')(__dirname + '/config');
+console.log('Reading configuration from ' + __dirname + '/config'); // read config file
+
+var port = process.env.PORT || process.argv[2] || parseInt(configuration.port) || 3000; // Allow for Heroku dynamic ports and custom ports
+var messageoftheday = configuration.motd && 'nodechat'; // Default MOTD
 http.listen(port, console.log('listening on: '+port));
 
-// admin password thing
-function randomIntInc(low, high) { // https://blog.tompawlak.org/generate-random-values-nodejs-javascript thanks :D
-    return Math.floor(Math.random() * (high - low + 2) + low);
-}
-var adminpassword = randomIntInc(1000, 9999);
-
+// admin password
+var adminpassword = configuration.operator_password;
 console.log('Operator password: ' + adminpassword);
 
 console.log('local address: ' + require('ip').address() + ':' + port);
