@@ -3,16 +3,11 @@ Node.js chat server... on version 2 now! we are making it more efficient, faster
 
 developed by fatbu and EamonWong
 
-Download:
+Download and setup:
 ```
-git clone https://github.com/fatbu/nodechat
+git clone https://github.com/fatbu/nodechat && cd nodechat && npm install
 ```
-Then `cd` into `nodechat/`
 
-Setup:
-```
-npm install
-```
 How to start the server:
 ```
 npm start
