@@ -24,7 +24,8 @@ if(!fs.existsSync(__dirname + '/config')){
         if(err){
             console.error(err);
         }else{
-            console.log('Configuration file generated.')
+            console.log('Configuration file generated. Please start nodechat again for the file to take effect');
+            process.exit();
         }
     });
 }
