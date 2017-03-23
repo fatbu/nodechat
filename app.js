@@ -11,15 +11,14 @@ if(!fs.existsSync(__dirname + '/config')){
     // No config file
     console.log('No configuration file detected. Generating file...')
     fs.writeFile(__dirname + '/config', `# nodechat configuration file
+# Port to run on
+port 3000
 
-    # Port to run on
-    port 3000
+# Starting MOTD
+motd welcome
 
-    # Starting MOTD
-    motd welcome
-
-    # Operator password
-    operator_password 12345
+# Operator password
+operator_password 12345
     `, function(err){
         if(err){
             console.error(err);
