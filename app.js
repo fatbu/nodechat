@@ -59,6 +59,7 @@ var nicknames = [];
 io.on('connection', function(socket){
     process.on('SIGINT', function(){
         io.emit('chat message', {message: "Server closed"});
+        console.log('Exiting...');
         process.exit();
     });
     socket.on('chat message', function(msg){
