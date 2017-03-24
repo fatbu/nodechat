@@ -33,7 +33,7 @@ var configuration = require('very-simple-config')(__dirname + '/config');
 console.log('Reading configuration from ' + __dirname + '/config'); // read config file
 
 var port = process.env.PORT || process.argv[2] || parseInt(configuration.port) || 3000; // Allow for Heroku dynamic ports and custom ports
-var messageoftheday = configuration.motd && 'nodechat'; // Default MOTD
+var messageoftheday = configuration.motd || 'nodechat'; // Default MOTD
 http.listen(port, console.log('listening on: '+port));
 
 // admin password
