@@ -39,8 +39,6 @@ var chatroom = "lobby";
 socket.on("verified", function() {
     admin = true;
     socket.emit("chat message", {
-        chatroom: "lobby",
-        nickname: "",
         message: nick + " is now an operator!"
     });
 });
