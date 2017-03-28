@@ -56,7 +56,7 @@ socket.on("chat message", function(msg) {
 });
 
 socket.on("usersonline", function(usersList) {
-    appendMessage("Users online: " + usersList.toString());
+    appendMessage("Users online: " + usersList.toString().replace(/,/g, ', '));
 });
 
 appendMessage("Logging in...");
