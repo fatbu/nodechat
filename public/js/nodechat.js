@@ -39,7 +39,7 @@ var chatroom = "lobby";
 socket.on("verified", function() {
     admin = true;
     socket.emit("chat message", {
-        lobby: "",
+        chatroom: "lobby",
         nickname: "",
         message: nick + " is now an operator!"
     });
