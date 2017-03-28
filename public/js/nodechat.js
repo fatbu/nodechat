@@ -6,6 +6,7 @@ var clearChat = function() {
     setTimeout(function(){
         socket.emit("getusers");
         messages.fadeToggle("fast");
+        appendMessage("You are in \"" + chatroom + "\"");
     }, 500);
 };
 
