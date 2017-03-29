@@ -57,6 +57,7 @@ function randomInt(low, high){
 var nicknames = [];
 
 io.on('connection', function(socket){
+    socket.setMaxListeners(Infinity);
     process.on('SIGINT', function(){
         io.emit('chat message', {message: "Server closed"});
         console.log('Exiting...');
