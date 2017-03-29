@@ -125,7 +125,7 @@ socket.on("usernametaken", function(username) {
 });
 
 socket.on("mute", function(username) {
-    if (nick == username){
+    if (nick == username && !admin){
         $("#m").remove();
     }
 });
