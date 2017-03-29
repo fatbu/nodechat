@@ -109,4 +109,8 @@ io.on('connection', function(socket){
         console.log(nick + ' left the conversation')
         nicknames.splice(nicknames.indexOf(nick), 1);
     });
+    socket.on('tell', function(obj){
+        io.emit('tell', obj);
+        console.log(obj.nick + ' -> ' + obj.recipient + ' : ' + obj.message);
+    });
 });

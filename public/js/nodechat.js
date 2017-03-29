@@ -31,6 +31,9 @@ if ("" == nick.trim() || nick.length < 3) {
 }else if (nick.length > 12) {
     alert("Nickname too long");
     location.reload();
+}else if (nick.indexOf(" ") >= 0){
+    alert("No spaces in nickname allowed");
+    location.reload();
 }
 
 var admin = false;
@@ -51,6 +54,14 @@ socket.on("chat message", function(msg) {
     }else{
         // Announcements
         appendMessage(msg.message);
+    }
+});
+
+socket.on("tell", function(msg){
+    if(msg.recipient == nick){
+        appendMessage(msg.nick + ' -> ' + 'you : ' + msg.message);
+    }else if(msg.nick == nick){
+        appendMessage("You -> " + msg.recipient + " : " + msg.message);
     }
 });
 
@@ -94,6 +105,12 @@ $("form").submit(function() {
         }
         else if (a.search(/clear/) != -1) {
             clearChat();
+        }else if (a.search(/tell/) != -1) {
+            var recipient = a.replace(/tell\s/, "").replace(/\s.*/, "");
+            var message = a.replace(/tell\s/, "").substring(a.replace(/tell\s/, "").indexOf(" ")+1);
+            console.log(recipient);
+            console.log(message);
+            socket.emit("tell", {nick: nick, recipient: recipient, message: message});
         }
         if (admin) {
             // ADMIN COMMANDS
