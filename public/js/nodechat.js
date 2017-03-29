@@ -108,8 +108,6 @@ $("form").submit(function() {
         }else if (a.search(/tell/) != -1) {
             var recipient = a.replace(/tell\s/, "").replace(/\s.*/, "");
             var message = a.replace(/tell\s/, "").substring(a.replace(/tell\s/, "").indexOf(" ")+1);
-            console.log(recipient);
-            console.log(message);
             socket.emit("tell", {nick: nick, recipient: recipient, message: message});
         }
         if (admin) {
