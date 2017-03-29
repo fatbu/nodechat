@@ -79,11 +79,11 @@ $("form").submit(function() {
                 socket.emit("verifyadmin", a);
             }
         }
-        if (a.search(/users/) != -1) {
+        else if (a.search(/users/) != -1) {
             a = a.replace(/users\s/, "");
             socket.emit("getusers");
         }
-        if (a.search(/chatroom/) != -1){
+        else if (a.search(/chatroom/) != -1){
             a = a.replace(/chatroom\s/, "");
             if(a){
                 chatroom = a.toLowerCase();;
@@ -92,7 +92,7 @@ $("form").submit(function() {
                 appendMessage("You are in \"" + chatroom + "\"");
             }
         }
-        if (a.search(/clear/) != -1) {
+        else if (a.search(/clear/) != -1) {
             clearChat();
         }
         if (admin) {
@@ -101,7 +101,7 @@ $("form").submit(function() {
                 a = a.replace(/mute\s/, "");
                 if (a != nick) socket.emit("mute", a);
             }
-            if (a.search(/motd/) != -1) {
+            else if (a.search(/motd/) != -1) {
                 a = a.replace(/motd\s/, "");
                 socket.emit("motd", a);
             }
