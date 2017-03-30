@@ -124,11 +124,13 @@ $("form").submit(function() {
         $("#m").val("");
         return false;
     } else {
-        socket.emit("chat message", {
-            nickname: nick,
-            message: a,
-            chatroom: chatroom
-        });
+        if(!a.trim() == ""){
+            socket.emit("chat message", {
+                nickname: nick,
+                message: a,
+                chatroom: chatroom
+            });
+        }
         $("#m").val("");
         return false;
     }
