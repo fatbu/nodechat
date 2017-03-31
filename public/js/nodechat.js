@@ -146,7 +146,9 @@ socket.on("mute", function(username) {
         $("#m").remove();
     }
 });
-
+socket.on("update nicknames", function(){
+    socket.emit("update nicknames", nick);
+});
 socket.on("motd", function(motd) {
     $("#motd").text(motd);
 });

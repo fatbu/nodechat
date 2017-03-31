@@ -11,14 +11,20 @@ if(!fs.existsSync(__dirname + '/config')){
     // No config file
     console.log('No configuration file detected. Generating file...')
     fs.writeFile(__dirname + '/config', `# nodechat configuration file
+
 # Port to run on
 port 3000
 
 # Starting MOTD
-motd welcome
+motd welcome to nodechat
 
 # Operator password
 operator_password 12345
+
+# Ping interval
+# Time between pings in milliseconds
+ping_interval 10000
+
     `, function(err){
         if(err){
             console.error(err);
@@ -58,11 +64,6 @@ var nicknames = [];
 
 io.on('connection', function(socket){
     socket.setMaxListeners(Infinity);
-    process.on('SIGINT', function(){
-        io.emit('chat message', {message: "Server closed"});
-        console.log('Exiting...');
-        process.exit();
-    });
     socket.on('chat message', function(msg){
         io.emit('chat message', msg);
         if(msg.chatroom){
@@ -114,4 +115,18 @@ io.on('connection', function(socket){
         io.emit('tell', obj);
         console.log(obj.nick + ' -> ' + obj.recipient + ' : ' + obj.message);
     });
+    socket.on('update nicknames', function(nickname){
+        nicknames.push(nickname);
+    });
 });
+
+process.on('SIGINT', function(){
+    io.emit('chat message', {message: "Server closed"});
+    console.log('Exiting...');
+    process.exit();
+});
+
+setInterval(function(){
+    io.emit('update nicknames');
+    nicknames = [];
+}, configuration.ping_interval);
