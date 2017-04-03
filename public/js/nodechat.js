@@ -22,19 +22,8 @@ var socket = io.connect();
 socket.emit("getmotd", function(motd) {
     $("#motd").text(motd);
 });
-
-var nick = prompt("Nickname");
-
-if ("" == nick.trim() || nick.length < 3) {
-    alert("Nickname too short");
-    location.reload();
-}else if (nick.length > 12) {
-    alert("Nickname too long");
-    location.reload();
-}else if (nick.indexOf(" ") >= 0){
-    alert("No spaces in nickname allowed");
-    location.reload();
-}
+var randomnumber = Math.floor(Math.random()*10000)
+var nick = "guest"+randomnumber
 
 var admin = false;
 var chatroom = "lobby";
@@ -75,6 +64,8 @@ socket.emit("userconnect", nick);
 
 appendMessage("You are in \"" + chatroom + "\"");
 
+appendMessage("Your username is \""+nick+"\'.")
+
 socket.emit("getusers");
 
 $("form").submit(function() {
@@ -105,6 +96,7 @@ $("form").submit(function() {
         }
         else if (a.search(/clear/) != -1) {
             clearChat();
+            appendMessage("Your username is \""+nick+"\'.")
         }else if (a.search(/tell/) != -1) {
             var recipient = a.replace(/tell\s/, "").replace(/\s.*/, "");
             var message = a.replace(/tell\s/, "").substring(a.replace(/tell\s/, "").indexOf(" ")+1);
