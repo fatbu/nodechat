@@ -37,3 +37,7 @@ jspm_packages
 .node_repl_history
 
 config
+
+public/index.html
+
+public/js/nodechat.js
