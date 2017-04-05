@@ -64,7 +64,7 @@ socket.emit("userconnect", nick);
 
 appendMessage("You are in \"" + chatroom + "\"");
 
-appendMessage("Your username is \""+nick+"\'.")
+appendMessage("Your username is \""+nick+"\'")
 
 socket.emit("getusers");
 
@@ -96,11 +96,27 @@ $("form").submit(function() {
         }
         else if (a.search(/clear/) != -1) {
             clearChat();
-            appendMessage("Your username is \""+nick+"\'.")
-        }else if (a.search(/tell/) != -1) {
+        }
+        else if (a.search(/tell/) != -1) {
             var recipient = a.replace(/tell\s/, "").replace(/\s.*/, "");
             var message = a.replace(/tell\s/, "").substring(a.replace(/tell\s/, "").indexOf(" ")+1);
             socket.emit("tell", {nick: nick, recipient: recipient, message: message});
+        }
+        else if (a.search(/nick/) != 1) {
+            var newNick = a.replace(/nick\s/, "");
+            if ("" == newNick.trim() || nick.length < 3) {
+                appendMessage("Nickname too short");
+            }else if (newNick.length > 20) {
+                appendMessage("Nickname too long");
+            }else if (newNick.indexOf(" ") >= 0){
+                appendMessage("No spaces in nickname allowed");
+            }else{
+                var obj = {
+                    newNick: newNick,
+                    oldNick: nick
+                }
+                socket.emit('change nick', obj);
+            }
         }
         if (admin) {
             // ADMIN COMMANDS
@@ -127,8 +143,11 @@ $("form").submit(function() {
 });
 
 socket.on("usernametaken", function(username) {
-    alert("Username taken");
-    location.reload();
+    appendMessage("Username taken");
+});
+
+socket.on("update nick", function(newNick){
+    nick = newNick;
 });
 
 socket.on("mute", function(username) {

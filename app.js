@@ -114,4 +114,13 @@ io.on('connection', function(socket){
         io.emit('tell', obj);
         console.log(obj.nick + ' -> ' + obj.recipient + ' : ' + obj.message);
     });
+    socket.on('change nick', function(obj){
+        if(nicknames.indexOf(obj.newNick) >= 0){
+            socket.emit('usernametaken');
+        }else{
+            nicknames[nicknames.indexOf(obj.oldNick)] = obj.newNick;
+            io.emit('chat message', {message: obj.oldNick + ' changed their name to ' + obj.newNick});
+            socket.emit('update nick', obj.newNick);
+        }
+    });
 });
