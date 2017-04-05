@@ -108,7 +108,7 @@ $("form").submit(function() {
             var message = a.replace(/tell\s/, "").substring(a.replace(/tell\s/, "").indexOf(" ")+1);
             socket.emit("tell", {nick: nick, recipient: recipient, message: message});
         }
-        else if (a.search(/nick/) != 1) {
+        else if (a.search(/nick/) != -1) {
             var newNick = a.replace(/nick\s/, "");
             if ("" == newNick.trim() || nick.length < 3) {
                 appendMessage("Nickname too short");
