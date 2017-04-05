@@ -70,7 +70,7 @@ setTimeout(function(){
 
 appendMessage("You are in \"" + chatroom + "\"");
 
-appendMessage("Your username is \""+nick+"\'")
+appendMessage("Your username is "+nick);
 
 socket.emit("getusers");
 
