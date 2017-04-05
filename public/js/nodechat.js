@@ -15,6 +15,8 @@ function appendMessage(txt) {
     window.scrollTo(0,document.body.scrollHeight);
 }
 
+var ready = false;
+
 appendMessage("Connecting...");
 
 var socket = io.connect();
@@ -23,7 +25,7 @@ socket.emit("getmotd", function(motd) {
     $("#motd").text(motd);
 });
 var randomnumber = Math.floor(Math.random()*10000)
-var nick = "guest"+randomnumber
+var nick = localStorage.defaultNick || "guest" + randomnumber;
 
 var admin = false;
 var chatroom = "lobby";
@@ -61,6 +63,10 @@ socket.on("usersonline", function(usersList) {
 appendMessage("Logging in...");
 
 socket.emit("userconnect", nick);
+
+setTimeout(function(){
+    ready = true;
+}, 1000);
 
 appendMessage("You are in \"" + chatroom + "\"");
 
@@ -144,10 +150,17 @@ $("form").submit(function() {
 
 socket.on("usernametaken", function(username) {
     appendMessage("Username taken");
+    if(!ready){
+        nick = "guest" + randomnumber;
+        socket.emit("userconnect", "guest" + randomnumber);
+        appendMessage("Your new username is " + nick);
+    }
+    ready = true;
 });
 
 socket.on("update nick", function(newNick){
     nick = newNick;
+    localStorage.defaultNick = newNick;
 });
 
 socket.on("mute", function(username) {
