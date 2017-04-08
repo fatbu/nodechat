@@ -21,111 +21,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="shortcut icon" href="/favicon.ico" type="image/ico" />
     <title>Nodechat</title>
-    <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font: 16px Helvetica, Arial; color: black; background: white;}
-    form { padding: 3px; position: fixed; padding-bottom: 15px; bottom: 0; width: 87%;}
-    form input { border: 0; padding: 10px; width: 80%;}
-    #title { padding: 10px; margin-top: 10px; margin-bottom: 10px;}
-    #motd { padding: 10px; font: 24px Helvetica, Arial, color: black; margin-top: 10px; margin-bottom: 10px; text-align: center;}
-    #clearchatdiv { float: right; padding: 12px;}
-    #clearchatbtn { width: 80px; height: 40px; padding: 5px; font-size: 14px; border-radius: 5px;}
-    #messages { list-style-type: none; margin: 0; padding: 10px; overflow-y: auto; }
-    #messages li { padding: 3px; font-family: monospace;}
-    h4 {font-size: inherit;}
-    .container {
-        padding-bottom: 30px;
-    }
-    .top {
-        z-index:1000;
-    }
-
-    .parent2 {
-        top:15px;
-        left:15px;
-        position:fixed;
-        display:block;
-        width:100px;
-        height:100px;
-        background-color:transparent;
-        border-radius:50%;
-        z-index:20;
-        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    }
-    .test1 {
-        width:60%;
-        height:60%;
-        background-color:dimGray;
-        border-radius:50%;
-        position:absolute;
-        color:white;
-        text-align:center;
-        line-height:70px;
-        top:25%;
-        left:25%;
-        z-index:19;
-        transition: all 500ms cubic-bezier(0.680, -0.550, 0.265, 1.550);
-        position:absolute;
-    }
-    .test2 {
-        width:60%;
-        height:60%;
-        background-color:dimGray;
-        border-radius:50%;
-        position:absolute;
-        color:white;
-        text-align:center;
-        line-height:70px;
-        top:25%;
-        left:25%;
-        z-index:19;
-        transition: all 500ms cubic-bezier(0.680, -0.550, 0.265, 1.550) .2s;
-    }
-    .test3 {
-        width:60%;
-        height:60%;
-        background-color:dimGray;
-        border-radius:50%;
-        position:absolute;
-        color:white;
-        text-align:center;
-        line-height:70px;
-        top:25%;
-        left:25%;
-        transition: all 500ms cubic-bezier(0.680, -0.550, 0.265, 1.550) .4s;
-    }
-    .test4 {
-        width:60%;
-        height:60%;
-        background-color:dimGray;
-        border-radius:50%;
-        position:absolute;
-        color:white;
-        text-align:center;
-        line-height:70px;
-        top:25%;
-        left:25%;
-        transition: all 500ms cubic-bezier(0.680, -0.550, 0.265, 1.550) .6s;
-    }
-    .mask2 {
-        top:15px;
-        left:15px;
-        width:100px;
-        height:100px;
-        background:darkSlateGray;
-        border-radius:50%;
-        position:absolute;
-        z-index:21;
-        color:white;
-        text-align:center;
-        line-height:120px;
-        cursor:pointer;
-        position:fixed;
-    }
-
-    </style>
+    <link rel="stylesheet" href="/css/nodechat.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -140,16 +36,16 @@
   var active3 = false;
   var active4 = false;
 
-    $('.parent2').on('mousedown touchstart', function() {
+    $('.pardiv').on('mousedown touchstart', function() {
 
-    if (!active1) $(this).find('.test1').css({'background-color': 'gray', 'transform': 'translate(0px,125px)'});
-    else $(this).find('.test1').css({'background-color': 'dimGray', 'transform': 'none'});
-     if (!active2) $(this).find('.test2').css({'background-color': 'gray', 'transform': 'translate(60px,105px)'});
-    else $(this).find('.test2').css({'background-color': 'darkGray', 'transform': 'none'});
-      if (!active3) $(this).find('.test3').css({'background-color': 'gray', 'transform': 'translate(105px,60px)'});
-    else $(this).find('.test3').css({'background-color': 'silver', 'transform': 'none'});
-      if (!active4) $(this).find('.test4').css({'background-color': 'gray', 'transform': 'translate(125px,0px)'});
-    else $(this).find('.test4').css({'background-color': 'silver', 'transform': 'none'});
+    if (!active1) $(this).find('.div1').css({'background-color': 'gray', 'transform': 'translate(0px,125px)'});
+    else $(this).find('.div1').css({'background-color': 'dimGray', 'transform': 'none'});
+     if (!active2) $(this).find('.div2').css({'background-color': 'gray', 'transform': 'translate(60px,105px)'});
+    else $(this).find('.div2').css({'background-color': 'darkGray', 'transform': 'none'});
+      if (!active3) $(this).find('.div3').css({'background-color': 'gray', 'transform': 'translate(105px,60px)'});
+    else $(this).find('.div3').css({'background-color': 'silver', 'transform': 'none'});
+      if (!active4) $(this).find('.div4').css({'background-color': 'gray', 'transform': 'translate(125px,0px)'});
+    else $(this).find('.div4').css({'background-color': 'silver', 'transform': 'none'});
     active1 = !active1;
     active2 = !active2;
     active3 = !active3;
@@ -158,11 +54,11 @@
     });
 });
 </script>
-  <div class="parent2">
-  <a href="https://github.com/EamonWong"><div class="test1"><i class="fa fa-user fa-2x"></i></div></a>
-  <a href="JavaScript:self.close()"><div class="test2"><i class="fa fa-times fa-2x"></i></div></a>
-  <a href="https://github.com/fatbu/nodechat/tree/nodechat-v3"><div class="test3"><i class="fa fa-code fa-2x"></i></div></a>
-  <a href="mailto:tszhw2022@student.cis.edu.hk?Subject=Nodechat%20Suggestions" target="_top"><div class="test4"><i class="fa fa-envelope-o fa-2x"></i></div></a>
+  <div class="pardiv">
+  <a href="https://github.com/EamonWong"><div class="div1"><i class="fa fa-user fa-2x"></i></div></a>
+  <a href="JavaScript:self.close()"><div class="div2"><i class="fa fa-times fa-2x"></i></div></a>
+  <a href="https://github.com/fatbu/nodechat/tree/nodechat-v3"><div class="div3"><i class="fa fa-code fa-2x"></i></div></a>
+  <a href="mailto:tszhw2022@student.cis.edu.hk?Subject=Nodechat%20Suggestions" target="_top"><div class="div4"><i class="fa fa-envelope-o fa-2x"></i></div></a>
   <div class="mask2"><i class="fa fa-home fa-3x" href=></i></div>
 </div>
     <br>
