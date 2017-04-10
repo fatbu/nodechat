@@ -1,6 +1,6 @@
 {
   "name": "nodechat",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "description": "node.js and socket.io chat application",
   "dependencies": {
     "express": "^4.14.0",
