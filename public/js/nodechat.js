@@ -79,7 +79,7 @@ $("form").submit(function() {
     if ("/" == a.charAt(0)) {
         // COMMANDS
         a = a.slice(1);
-        if (a.search(/operator/) != -1){
+        if (a.search(/^operator/) != -1){
             if ("operator" == a){
                 socket.emit("printadmin");
             } else {
@@ -87,11 +87,11 @@ $("form").submit(function() {
                 socket.emit("verifyadmin", a);
             }
         }
-        else if (a.search(/users/) != -1) {
+        else if (a.search(/^users/) != -1) {
             a = a.replace(/users\s/, "");
             socket.emit("getusers");
         }
-        else if (a.search(/chatroom/) != -1){
+        else if (a.search(/^chatroom/) != -1){
             a = a.replace(/chatroom\s/, "");
             if(a){
                 chatroom = a.toLowerCase();;
@@ -100,15 +100,15 @@ $("form").submit(function() {
                 appendMessage("You are in \"" + chatroom + "\"");
             }
         }
-        else if (a.search(/clear/) != -1) {
+        else if (a.search(/^clear/) != -1) {
             clearChat();
         }
-        else if (a.search(/tell/) != -1) {
+        else if (a.search(/^tell/) != -1) {
             var recipient = a.replace(/tell\s/, "").replace(/\s.*/, "");
             var message = a.replace(/tell\s/, "").substring(a.replace(/tell\s/, "").indexOf(" ")+1);
             socket.emit("tell", {nick: nick, recipient: recipient, message: message});
         }
-        else if (a.search(/nick/) != -1) {
+        else if (a.search(/^nick/) != -1) {
             var newNick = a.replace(/nick\s/, "");
             if ("" == newNick.trim() || nick.length < 3) {
                 appendMessage("Nickname too short");
@@ -124,8 +124,8 @@ $("form").submit(function() {
                 socket.emit('change nick', obj);
             }
         }
-        else if (a.search(/help/) != -1) {
-            appendMessage("Nodechat commands help");
+        else if (a.search(/^help/) != -1) {
+            appendMessage("Nodechat commands help:");
             appendMessage("/help\tdisplay help");
             appendMessage("/users\tshow list of online users");
             appendMessage("/chatroom [chatroom]\tchange chatroom, if used without parameters it will display your current chatroom");
@@ -135,11 +135,11 @@ $("form").submit(function() {
         }
         if (admin) {
             // ADMIN COMMANDS
-            if (a.search(/mute/) != -1) {
+            if (a.search(/^mute/) != -1) {
                 a = a.replace(/mute\s/, "");
                 if (a != nick) socket.emit("mute", a);
             }
-            else if (a.search(/motd/) != -1) {
+            else if (a.search(/^motd/) != -1) {
                 a = a.replace(/motd\s/, "");
                 socket.emit("motd", a);
             }
