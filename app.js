@@ -93,9 +93,13 @@ io.on('connection', function(socket){
         }
     });
     socket.on('mute', function(user){
-        io.emit('mute', user);
-        io.emit('chat message', {nickname: '', message: user+' was muted!'})
-        console.log(user+' was muted!');
+        if(nicknames.indexOf(user) != -1){
+            io.emit('mute', user);
+            io.emit('chat message', {message: user+' was muted!'})
+            console.log(user+' was muted!');
+        }else{
+            socket.emit('chat message', {message: 'User ' + user + ' does not exist'});
+        }
     });
     socket.on('motd', function(motd){
         messageoftheday = motd;
