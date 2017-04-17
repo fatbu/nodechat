@@ -14,13 +14,13 @@ form {
   position: fixed;
   padding-bottom: 15px;
   bottom: 0;
-  width: 87%;
+  width: 90%;
 }
 
 form input {
   border: 0;
   padding: 10px;
-  width: 80%;
+  width: 90%;
 }
 
 #title {
