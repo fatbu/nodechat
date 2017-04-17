@@ -124,6 +124,15 @@ $("form").submit(function() {
                 socket.emit('change nick', obj);
             }
         }
+        else if (a.search(/help/) != -1) {
+            appendMessage("Nodechat commands help");
+            appendMessage("/help\tdisplay help");
+            appendMessage("/users\tshow list of online users");
+            appendMessage("/chatroom [chatroom]\tchange chatroom, if used without parameters it will display your current chatroom");
+            appendMessage("/nick [new nickname]\tchange username");
+            appendMessage("/tell [username] [message]\tsend a private message");
+            appendMessage("/operator [password]\t become the operator, you will need to know the server password");
+        }
         if (admin) {
             // ADMIN COMMANDS
             if (a.search(/mute/) != -1) {
