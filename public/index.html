@@ -1,6 +1,10 @@
 <!doctype html>
 <html>
 <head>
+  <div id="faceoff">
+      <div id="preloader"></div>
+      <div class="preloader-section"></div>
+  </div>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="apple-touch-icon" sizes="57x57" href="icons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="icons/apple-icon-60x60.png">
@@ -28,6 +32,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+
   <script>
   $(document).ready(function() {
 
@@ -53,7 +58,11 @@
 
     });
 });
+setTimeout(function() {
+    $('#faceoff').fadeOut('fast');
+}, 1000); // <-- time in milliseconds
 </script>
+<header>
   <div class="pardiv">
   <a href="https://github.com/EamonWong"><div class="div1"><i class="fa fa-user fa-2x"></i></div></a>
   <a href="JavaScript:self.close()"><div class="div2"><i class="fa fa-times fa-2x"></i></div></a>
@@ -61,6 +70,7 @@
   <a href="mailto:tszhw2022@student.cis.edu.hk?Subject=Nodechat%20Suggestions" target="_top"><div class="div4"><i class="fa fa-envelope-o fa-2x"></i></div></a>
   <div class="mask2"><i class="fa fa-home fa-3x" href=></i></div>
 </div>
+</header>
     <br>
     <hr><p align=center><div class="container">
     <h3 id="motd"></h3></div></p>
