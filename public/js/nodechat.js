@@ -70,6 +70,8 @@ appendMessage("You are in \"" + chatroom + "\"");
 
 appendMessage("Your username is "+nick);
 
+appendMessage("/help for help with chat commands");
+
 socket.emit("getusers");
 
 $("form").submit(function() {
