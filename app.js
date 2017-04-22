@@ -48,6 +48,7 @@ getIP(function(err, ip){
     }else{
         console.log('external address: ' + ip + ':' + port);
     }
+    console.log('MOTD: ' + configuration.motd);
 });
 
 function randomInt(low, high){
