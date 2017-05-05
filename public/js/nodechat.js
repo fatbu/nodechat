@@ -74,85 +74,94 @@ appendMessage("/help for help with chat commands");
 
 socket.emit("getusers");
 
+var okToSend = true;
+
 $("form").submit(function() {
-    var a = $("#m").val();
-    if ("/" == a.charAt(0)) {
-        // COMMANDS
-        a = a.slice(1);
-        if (a.search(/^operator/) != -1){
-            if ("operator" == a){
-                socket.emit("printadmin");
-            } else {
-                a = a.replace(/operator\s/, "");
-                socket.emit("verifyadmin", a);
-            }
-        }
-        else if (a.search(/^users/) != -1) {
-            a = a.replace(/users\s/, "");
-            socket.emit("getusers");
-        }
-        else if (a.search(/^chatroom/) != -1){
-            a = a.replace(/chatroom\s/, "");
-            if(a){
-                chatroom = a.toLowerCase();;
-                appendMessage("You are now in \"" + chatroom + "\"");
-            }else{
-                appendMessage("You are in \"" + chatroom + "\"");
-            }
-        }
-        else if (a.search(/^clear/) != -1) {
-            clearChat();
-        }
-        else if (a.search(/^tell/) != -1) {
-            var recipient = a.replace(/tell\s/, "").replace(/\s.*/, "");
-            var message = a.replace(/tell\s/, "").substring(a.replace(/tell\s/, "").indexOf(" ")+1);
-            socket.emit("tell", {nick: nick, recipient: recipient, message: message});
-        }
-        else if (a.search(/^nick/) != -1) {
-            var newNick = a.replace(/nick\s/, "");
-            if ("" == newNick.trim() || nick.length < 3) {
-                appendMessage("Nickname too short");
-            }else if (newNick.length > 20) {
-                appendMessage("Nickname too long");
-            }else if (newNick.indexOf(" ") >= 0){
-                appendMessage("No spaces in nickname allowed");
-            }else{
-                var obj = {
-                    newNick: newNick,
-                    oldNick: nick
+    if(okToSend){
+        okToSend = false;
+        setTimeout(function(){okToSend = true}, 400);
+        var a = $("#m").val();
+        if ("/" == a.charAt(0)) {
+            // COMMANDS
+            a = a.slice(1);
+            if (a.search(/^operator/) != -1){
+                if ("operator" == a){
+                    socket.emit("printadmin");
+                } else {
+                    a = a.replace(/operator\s/, "");
+                    socket.emit("verifyadmin", a);
                 }
-                socket.emit('change nick', obj);
             }
-        }
-        else if (a.search(/^help/) != -1) {
-            appendMessage("Nodechat commands help:");
-            appendMessage("/help\tdisplay help");
-            appendMessage("/users\tshow list of online users");
-            appendMessage("/chatroom [chatroom]\tchange chatroom, if used without parameters it will display your current chatroom");
-            appendMessage("/nick [new nickname]\tchange username");
-            appendMessage("/tell [username] [message]\tsend a private message");
-            appendMessage("/operator [password]\t become the operator, you will need to know the server password");
-        }
-        if (admin) {
-            // ADMIN COMMANDS
-            if (a.search(/^mute/) != -1) {
-                a = a.replace(/mute\s/, "");
-                if (a != nick) socket.emit("mute", a);
+            else if (a.search(/^users/) != -1) {
+                a = a.replace(/users\s/, "");
+                socket.emit("getusers");
             }
-            else if (a.search(/^motd/) != -1) {
-                a = a.replace(/motd\s/, "");
-                socket.emit("motd", a);
+            else if (a.search(/^chatroom/) != -1){
+                a = a.replace(/chatroom\s/, "");
+                if(a){
+                    chatroom = a.toLowerCase();;
+                    appendMessage("You are now in \"" + chatroom + "\"");
+                }else{
+                    appendMessage("You are in \"" + chatroom + "\"");
+                }
             }
+            else if (a.search(/^clear/) != -1) {
+                clearChat();
+            }
+            else if (a.search(/^tell/) != -1) {
+                var recipient = a.replace(/tell\s/, "").replace(/\s.*/, "");
+                var message = a.replace(/tell\s/, "").substring(a.replace(/tell\s/, "").indexOf(" ")+1);
+                socket.emit("tell", {nick: nick, recipient: recipient, message: message});
+            }
+            else if (a.search(/^nick/) != -1) {
+                var newNick = a.replace(/nick\s/, "");
+                if ("" == newNick.trim() || nick.length < 3) {
+                    appendMessage("Nickname too short");
+                }else if (newNick.length > 20) {
+                    appendMessage("Nickname too long");
+                }else if (newNick.indexOf(" ") >= 0){
+                    appendMessage("No spaces in nickname allowed");
+                }else{
+                    var obj = {
+                        newNick: newNick,
+                        oldNick: nick
+                    }
+                    socket.emit('change nick', obj);
+                }
+            }
+            else if (a.search(/^help/) != -1) {
+                appendMessage("Nodechat commands help:");
+                appendMessage("/help\tdisplay help");
+                appendMessage("/users\tshow list of online users");
+                appendMessage("/chatroom [chatroom]\tchange chatroom, if used without parameters it will display your current chatroom");
+                appendMessage("/nick [new nickname]\tchange username");
+                appendMessage("/tell [username] [message]\tsend a private message");
+                appendMessage("/operator [password]\t become the operator, you will need to know the server password");
+            }
+            if (admin) {
+                // ADMIN COMMANDS
+                if (a.search(/^mute/) != -1) {
+                    a = a.replace(/mute\s/, "");
+                    if (a != nick) socket.emit("mute", a);
+                }
+                else if (a.search(/^motd/) != -1) {
+                    a = a.replace(/motd\s/, "");
+                    socket.emit("motd", a);
+                }
+            }
+            $("#m").val("");
+            return false;
+        } else {
+            socket.emit("chat message", {
+                nickname: nick,
+                message: a,
+                chatroom: chatroom
+            });
+            $("#m").val("");
+            return false;
         }
-        $("#m").val("");
-        return false;
-    } else {
-        socket.emit("chat message", {
-            nickname: nick,
-            message: a,
-            chatroom: chatroom
-        });
-        $("#m").val("");
+    }else{
+        appendMessage("Please don't send messages so quickly");
         return false;
     }
 });
