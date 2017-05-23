@@ -25,6 +25,8 @@ socket.emit("getmotd", function(motd) {
     $("#motd").text(motd);
 });
 var randomnumber = Math.floor(Math.random()*10000)
+
+if(localStorage.defaultNick.charAt(0) == '@') localStorage.defaultNick = localStorage.defaultNick.slice(1)
 var nick = localStorage.defaultNick || "guest" + randomnumber;
 
 var admin = false;
@@ -35,6 +37,11 @@ socket.on("verified", function() {
     socket.emit("chat message", {
         message: nick + " is now an operator!"
     });
+    var obj = {
+        newNick: "@" + nick,
+        oldNick: nick
+    };
+    socket.emit('change nick', obj);
 });
 
 socket.on("chat message", function(msg) {
@@ -84,12 +91,15 @@ $("form").submit(function() {
         if ("/" == a.charAt(0)) {
             // COMMANDS
             a = a.slice(1);
-            if (a.search(/^operator/) != -1 && !admin){
-                if ("operator" == a){
-                    socket.emit("printadmin");
-                } else {
-                    a = a.replace(/operator\s/, "");
-                    socket.emit("verifyadmin", a);
+            if (a.search(/^operator/) != -1){
+                if(!admin){
+                    if (!("operator" == a)){
+                        a = a.replace(/operator\s/, "");
+                        socket.emit("verifyadmin", a);
+                    }
+                }else{
+                    appendMessage("You are already an operator!");
+
                 }
             }
             else if (a.search(/^users/) != -1) {
@@ -121,7 +131,9 @@ $("form").submit(function() {
                     appendMessage("Nickname too long");
                 }else if (newNick.indexOf(" ") >= 0){
                     appendMessage("No spaces in nickname allowed");
-                }else{
+                }else if (newNick.charAt(0) == '@'){
+                    appendMessage("No impersonating operators");
+                }else {
                     var obj = {
                         newNick: newNick,
                         oldNick: nick

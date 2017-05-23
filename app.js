@@ -76,9 +76,6 @@ io.on('connection', function(socket){
     socket.on('getusers', function(){
         socket.emit('usersonline', nicknames);
     });
-    socket.on('printadmin', function(){ // When someone does /operator without arguments in the chat console print the password in the command line/log because it is a pain to scroll all the way up.
-        console.log('Admin password: ' + adminpassword);
-    });
     socket.on('verifyadmin', function(password){ // Verify admin passcodes
         if(password == adminpassword){
             socket.emit('verified');
@@ -124,7 +121,9 @@ io.on('connection', function(socket){
             socket.emit('usernametaken');
         }else{
             nicknames[nicknames.indexOf(obj.oldNick)] = obj.newNick;
-            io.emit('chat message', {message: obj.oldNick + ' changed their name to ' + obj.newNick});
+            if(obj.newNick.charAt(0) != '@'){
+                io.emit('chat message', {message: obj.oldNick + ' changed their name to ' + obj.newNick});
+            }
             socket.emit('update nick', obj.newNick);
         }
     });
