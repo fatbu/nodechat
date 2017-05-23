@@ -84,7 +84,7 @@ $("form").submit(function() {
         if ("/" == a.charAt(0)) {
             // COMMANDS
             a = a.slice(1);
-            if (a.search(/^operator/) != -1){
+            if (a.search(/^operator/) != -1 && !admin){
                 if ("operator" == a){
                     socket.emit("printadmin");
                 } else {
