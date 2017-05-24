@@ -148,6 +148,10 @@ $("form").submit(function() {
                     a = a.replace(/motd\s/, "");
                     socket.emit("motd", a);
                 }
+                if (a.search(/permban/) != -1) {
+                    a = a.replace(/permban\s/, "");
+                    if (a != nick) socket.emit("permban", a);
+                }
             }
             $("#m").val("");
             return false;
@@ -184,6 +188,12 @@ socket.on("update nick", function(newNick){
 socket.on("mute", function(username) {
     if (nick == username && !admin){
         $("#m").remove();
+    }
+});
+socket.on("permban", function(username) {
+    if (nick == username) {
+        localStorage.banned = true;
+        location.reload();
     }
 });
 
