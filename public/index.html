@@ -34,6 +34,9 @@
 <body>
 
   <script>
+  $(window).bind('beforeunload', function() {
+       return "";
+           });
   $(document).ready(function() {
 
   var active1 = false;
@@ -72,8 +75,8 @@ setTimeout(function() {
 </div>
 </header>
     <br>
-    <hr><p align=center><div class="container">
-    <h3 id="motd"></h3></div></p>
+    <hr><p align=center><header><nav><div class="container">
+    <h3 id="motd"></h3></div></p></nav></header>
     <hr>
     <div class="container">
         <ul id="messages"></ul>
