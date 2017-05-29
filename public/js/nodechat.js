@@ -26,7 +26,7 @@ socket.emit("getmotd", function(motd) {
 });
 var randomnumber = Math.floor(Math.random()*10000)
 
-if(localStorage.defaultNick.charAt(0) == '@') localStorage.defaultNick = localStorage.defaultNick.slice(1)
+if(localStorage.defaultNick && localStorage.defaultNick.charAt(0) == '@') localStorage.defaultNick = localStorage.defaultNick.slice(1)
 var nick = localStorage.defaultNick || "guest" + randomnumber;
 
 var admin = false;
