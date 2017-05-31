@@ -84,10 +84,10 @@ socket.emit("getusers");
 var okToSend = true;
 
 $("form").submit(function() {
+    var a = $("#m").val();
     if(okToSend){
         okToSend = false;
         setTimeout(function(){okToSend = true}, 400);
-        var a = $("#m").val();
         if ("/" == a.charAt(0)) {
             // COMMANDS
             a = a.slice(1);
@@ -163,20 +163,19 @@ $("form").submit(function() {
                 }
             }
             $("#m").val("");
-            return false;
-        } else {
+        } else if(a.trim().length != 0) {
             socket.emit("chat message", {
                 nickname: nick,
                 message: a,
                 chatroom: chatroom
             });
             $("#m").val("");
-            return false;
         }
     }else{
         appendMessage("Please don't send messages so quickly");
-        return false;
+
     }
+    return false;
 });
 
 socket.on("usernametaken", function(username) {
