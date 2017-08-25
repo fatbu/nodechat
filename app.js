@@ -79,6 +79,20 @@ io.on('connection', function(socket){
     socket.on('verifyadmin', function(password){ // Verify admin passcodes
         if(password == adminpassword){
             socket.emit('verified');
+            socket.on('mute', function(user){
+                if(nicknames.indexOf(user) != -1){
+                    io.emit('mute', user);
+                    io.emit('chat message', {message: user+' was muted!'})
+                    console.log(user+' was muted!');
+                }else{
+                    socket.emit('chat message', {message: 'User ' + user + ' does not exist'});
+                }
+            });
+            socket.on('motd', function(motd){
+                messageoftheday = motd;
+                console.log('MOTD changed to: ' + messageoftheday);
+                io.emit('motd', messageoftheday);
+            });
         }
     });
     socket.on('userconnect', function(nick){ // When someone connects...
@@ -90,23 +104,9 @@ io.on('connection', function(socket){
             console.log(nick + ' joined the conversation');
         }
     });
-    socket.on('mute', function(user){
-        if(nicknames.indexOf(user) != -1){
-            io.emit('mute', user);
-            io.emit('chat message', {message: user+' was muted!'})
-            console.log(user+' was muted!');
-        }else{
-            socket.emit('chat message', {message: 'User ' + user + ' does not exist'});
-        }
-    });
-    socket.on('motd', function(motd){
-        messageoftheday = motd;
-        console.log('MOTD changed to: ' + messageoftheday);
-        io.emit('motd', messageoftheday);
-    })
     socket.on('getmotd', function(){
         socket.emit('motd', messageoftheday);
-    })
+    });
     socket.on('userdisconnect', function(nick){
         io.emit('chat message', {nickname: '', message:nick+' left the conversation'});
         console.log(nick + ' left the conversation')
