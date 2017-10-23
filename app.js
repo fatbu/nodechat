@@ -7,7 +7,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 app.use(require('express').static(__dirname + '/public'));
 var fs = require('fs');
-if(!fs.existsSync(__dirname + '/config')){
+if(!fs.existsSync(__dirname //+ '/config')){
     // No config file
     console.log('No configuration file detected. Generating file...')
     fs.writeFile(__dirname + '/config', `# nodechat configuration file
