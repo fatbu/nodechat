@@ -19,6 +19,7 @@ var ready = false;
 
 appendMessage("Connecting...");
 
+
 var socket = io.connect();
 
 socket.emit("getmotd", function(motd) {
