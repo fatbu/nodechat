@@ -61,6 +61,18 @@ form input {
   font-family: monospace;
 }
 
+#messages-tab-left
+{
+    padding: 3px;
+    position: fixed;
+}
+#pm-tab-ui {
+  padding: 3px;
+  font-family: monospace;
+}
+
+
+
 h4 {font-size: inherit;}
 .container {
     padding-bottom: 30px;
